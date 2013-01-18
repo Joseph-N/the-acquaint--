@@ -1,0 +1,233 @@
+@charset "utf-8";
+
+/* Import Bootstrap Gem */
+@import "bootstrap";
+
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  padding-top: 40px;
+  background-image: url(../images/bg.png);
+  background-repeat: repeat;
+}
+
+.navbar-inner {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+#container {
+  min-height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.container {
+  padding-left: 30px;
+}
+
+#container {
+  #navigation {
+    width: 100%;
+  }
+  #wrapper {
+    width: 935px;
+    margin-top: 0px;
+    margin-right: auto;
+    margin-bottom: 10px;
+    margin-left: auto;
+    padding-left: 20px;
+    padding-bottom: 20px;
+  }
+  #header {
+    height: 250px;
+    width: 100%;
+    background-image: url(../images/body-bg-1.jpg);
+    background-repeat: repeat-x;
+  }
+}
+
+.header-bigtext {
+  font-size: 50px;
+  line-height: 100px;
+  font-weight: bold;
+  color: #FFF;
+  display: block;
+}
+
+.header-smalltext {
+  color: #FFF;
+  font-size: 20px;
+}
+
+#container #wrapper #slider {
+  width: 500px;
+  float: left;
+  margin-top: 10px;
+  background-color: #FFF;
+  padding: 5px;
+}
+
+.clear {
+  clear: both;
+}
+
+#container #wrapper .signup {
+  width: 400px;
+  float: right;
+  .signup-box {
+    margin-top: -90px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0px -1px 20px rgba(50, 50, 50, 0.63);
+    -moz-box-shadow: 0px -1px 20px rgba(50, 50, 50, 0.63);
+    box-shadow: 0px -1px 20px rgba(50, 50, 50, 0.63);
+    .signup-header {
+      height: 35px;
+      background-color: #DEE1E8;
+      border-top-width: 2px;
+      border-right-width: 2px;
+      border-bottom-width: 2px;
+      border-left-width: 2px;
+      border-bottom-style: solid;
+      border-top-color: #999;
+      border-right-color: #999;
+      border-bottom-color: #999;
+      border-left-color: #999;
+      padding-top: 13px;
+      color: #404751;
+      border-top-left-radius: 5px;
+      -moz-border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      -moz-border-top-right-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .signup-content {
+      text-align: left;
+      padding-top: 15px;
+    }
+  }
+}
+
+.spacer {
+  height: 10px;
+}
+
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 80px;
+  background-color: #000;
+  color: #FFF;
+}
+
+#wrapper {
+  #photo {
+    height: 300px;
+    width: 250px;
+    padding: 5px;
+    background-color: #FFF;
+    margin-bottom: 20px;
+  }
+  #profile {
+    padding: 5px;
+    margin-top: 15px;
+    #profile-info {
+      float: right;
+      width: 620px;
+      padding: 5px;
+    }
+  }
+}
+
+.rating {
+  background-color: #666;
+  color: #FFF;
+  font-size: 16px;
+  font-weight: bold;
+  padding-top: 5px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  margin-bottom: 15px;
+}
+
+.big-rating {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+#container #wrapper #profile #photo-info {
+  width: 260px;
+  float: left;
+  margin-top: 0px;
+  margin-right: 0;
+  margin-bottom: 30px;
+  margin-left: 0;
+}
+
+.smart-title {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  border-top-width: thin;
+  border-right-width: thin;
+  border-bottom-width: thin;
+  border-left-width: thin;
+  border-bottom-style: solid;
+  border-top-color: #999;
+  border-right-color: #999;
+  border-bottom-color: #999;
+  border-left-color: #999;
+}
+
+.comment-box {
+  resize: vertical;
+  padding: 10px;
+  background-color: #F4F4F4;
+}
+
+.sbody {
+  min-height: 70px;
+  margin-bottom: 10px;
+  border-bottom-width: 1px;
+  border-bottom-style: dashed;
+  border-bottom-color: #333333;
+}
+
+.simage {
+  float: left;
+  height: 50px;
+  width: 50px;
+  border: solid 1px #dedede;
+  padding: 3px;
+}
+
+.stext {
+  margin-left: 70px;
+  min-height: 50px;
+  word-wrap: break-word;
+  overflow: hidden;
+  padding: 5px;
+  display: block;
+  font-family: "Georgia", Times New Roman, Times, serif;
+}
+
+.sttime {
+  font-size: 12px;
+  color: #999;
+}

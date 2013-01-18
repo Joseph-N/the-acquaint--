@@ -15,7 +15,7 @@ development:
   database: acquianter_development
   pool: 5
   username: root
-  password:
+  password: "4114"
   socket: /var/lib/mysql/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -28,7 +28,7 @@ test:
   database: acquianter_test
   pool: 5
   username: root
-  password:
+  password: "4114"
   socket: /var/lib/mysql/mysql.sock
 
 production:
@@ -38,5 +38,5 @@ production:
   database: acquianter_production
   pool: 5
   username: root
-  password:
+  password: "4114"
   socket: /var/lib/mysql/mysql.sock
