@@ -1,3 +1,89 @@
 <% provide(:title, 'Sign Up') %>
-<h1>Sign Up</h1>
-
+	<div id="header">
+		<div id="wrapper">
+			<span class="header-bigtext"> HOT OR NOT ?!  </span>
+        	<span class="header-smalltext">Upload the best of your photos and find out what really people think about you !!</span>
+    	</div>
+    </div>
+    <div id="wrapper">
+    	<h4>Sign up and get a chance to rate & interact with them!</h4>
+      	<div id="slider">
+      		<div id="myCarousel" class="carousel slide">
+            	<div class="carousel-inner">
+            		<div class="item">
+            			<img src="http://placehold.it/500x300" width="500" height="300" alt="user-1" />
+            			<div class="carousel-caption">
+            				<h4>Rachael</h4>
+            				<p>Loves to make new friends</p>
+            			</div>
+                  	</div>
+                  	<div class="item">
+                    	<img src="http://placehold.it/500x300" width="500" height="300" alt="user-2" />
+                    	<div class="carousel-caption">
+                      		<h4>Sheila</h4>
+                     		<p>Wants to meet new people</p>
+                    	</div>
+                  	</div>
+                  	<div class="item active">
+                    	<img src="http://placehold.it/500x300" width="500" height="300" alt="user-3" />
+                    	<div class="carousel-caption">
+                      		<h4>Cynthia</h4>
+                      		<p>Lets get started!</p>
+                    	</div>
+                  	</div>
+                </div>
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+            </div>
+        </div>
+        <div class="signup">
+        	<div class="signup-box">
+        		<div class="signup-header">SIGN UP FOR AN ACCOUNT</div>
+        		<div class="signup-content">
+        			 <%= form_for(@user) do |f| %>
+        			  <%= render 'shared/error_messages' %>
+        			    <table width="100%" cellpadding="3">
+                			<tr>
+                  				<td align="right" valign="middle"><%= f.label :First_Name %></td>
+                  				<td valign="middle">:</td>
+                  				<td><%= f.text_field :name %></td>
+                			</tr>
+                			<tr>
+                  				<td align="right" valign="middle"><%= f.label :username %></td>
+                  				<td valign="middle">:</td>
+                  				<td><%= f.text_field :username %></td>
+                			</tr>
+                			<tr>
+                  				<td align="right" valign="middle"><%= f.label :email %></td>
+                  				<td valign="middle">:</td>
+                  				<td><%= f.text_field :email %></td>
+                			</tr>
+                			<tr>
+                  				<td align="right" valign="middle"><%= f.label :gender %></td>
+                  				<td valign="middle">:</td>
+                  				<td><%= f.select( :gender, [['Your Gender',''], ['Male', 'male'], ['Female', 'female']]) %></td>
+                			</tr>
+                			<tr>
+                  				<td align="right" valign="middle"><%= f.label :password %></td>
+                  				<td valign="middle">:</td>
+                  				<td><%= f.text_field :password %></td>
+                			</tr>
+                			<tr>
+                  				<td align="right" valign="middle"><%= f.label :password_confirmation, "Confirm Password" %></td>
+                  				<td valign="middle">:</td>
+                  				<td><%= f.text_field :password_confirmation %></td>
+                			</tr>
+                			<tr>
+                  				<td>&nbsp;</td>
+                  				<td>&nbsp;</td>
+                  				<td><%= f.submit "Sign Me Up", class: "btn" %></td>
+              			</table>
+        			 <% end %>
+            		<div class="spacer"></div>
+          		</div>
+        	</div>
+      	</div>
+      	<div class="clear"></div>
+    </div>
+</div>
+</div>

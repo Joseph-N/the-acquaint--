@@ -13,14 +13,16 @@ require 'spec_helper'
 
 describe User do
   before do
-    @user = User.new(name: "Joseph", email: "jojoartz@yahoo.com",
-                           password: "password", password_confirmation: "password") 
+    @user = User.new(name: "Joseph", email: "jojoartz@yahoo.com", username: "Jose", gender: "Male",
+                                     password: "password", password_confirmation: "password") 
   end
   
   subject { @user }
   
   it { should respond_to(:name) }
   it { should respond_to(:email) }
+  it { should respond_to(:username) }
+  it { should respond_to(:gender) }
   it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation)}
@@ -38,8 +40,33 @@ describe User do
     it { should_not be_valid }
   end
   
-  describe "When naem is too long" do
+  describe "When name is too long" do
     before { @user.name = "a" * 21 }
+    it { should_not be_valid }
+  end
+  
+  describe "When username not present" do
+    before { @user.username = "" }
+    it { should_not be_valid }
+  end
+  
+  describe "When username too long" do
+    before { @user.username = "a" * 21 }
+    it { should_not be_valid }
+  end
+  
+  describe "When username is already taken" do
+    before do
+      user_with_exact_username = @user.dup
+      user_with_exact_username.username = @user.username
+      user_with_exact_username.save
+    end
+    
+    it { should_not be_valid }
+  end
+  
+  describe "When gender not present" do
+    before {@user.gender = "" }
     it { should_not be_valid }
   end
   
@@ -71,6 +98,16 @@ describe User do
     end
     
     it { should_not be_valid }
+  end
+  
+   describe "Test if email address with mixed case is valid" do
+    let(:mixed_case_email) { "Foo@ExAMPle.CoM" }
+
+    it "should be saved as all lower-case" do
+      @user.email = mixed_case_email
+      @user.save
+      @user.reload.email.should == mixed_case_email.downcase
+    end
   end
   
   describe "When password is not present" do

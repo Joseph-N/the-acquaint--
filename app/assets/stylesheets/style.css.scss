@@ -14,7 +14,7 @@ body {
   padding: 0;
   height: 100%;
   padding-top: 40px;
-  background-image: url(../images/bg.png);
+  background-image: url(bg.png);
   background-repeat: repeat;
 }
 
@@ -50,7 +50,7 @@ body {
   #header {
     height: 250px;
     width: 100%;
-    background-image: url(../images/body-bg-1.jpg);
+    background-image: url(body-bg-1.jpg);
     background-repeat: repeat-x;
   }
 }
@@ -118,6 +118,8 @@ body {
     .signup-content {
       text-align: left;
       padding-top: 15px;
+      padding-left: 10px;
+      padding-right: 10px;
     }
   }
 }
