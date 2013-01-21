@@ -30,25 +30,25 @@ describe "User Pages" do
     
     describe "with valid information" do
       before do
-        fill_in "name",             with: "Joseph"
-        fill_in "Username",         with: "Jose"
-        fill_in "Email",            with: "jojoartz@yahoo.com"
-        select  "Male",             from: "user_gender"        
-        fill_in "Password",         with: "password"
-        fill_in "Confirm Password", with: "password"
+        fill_in "user[name]",                   with: "Joseph"
+        fill_in "user[username]",               with: "Jose"
+        fill_in "user[email]",                  with: "jojoartz@yahoo.com"
+        select  "Male",                         from: "user[gender]"        
+        fill_in "user[password]",               with: "password"
+        fill_in "user[password_confirmation]",  with: "password"
       end
       
       it "Should create a user" do
         expect { click_button submit}.to change(User, :count).by(1)
       end     
       
-      #describe "after saving the user" do
-      #  before { click_button submit }
-      #  let(:user) { User.find_by_email('jojoartz@yahoo.com') }
+      describe "after saving the user" do
+        before { click_button submit }
+        let(:user) { User.find_by_email('jojoartz@yahoo.com') }
         
-      #  it { should have_selector('h4',text: 'Hi #{user.name}' )}
-      #  it { should have_link('Sign Out')}
-      #end
+        it { should have_selector('h4',text: 'Hi Joseph' )}
+        it { should have_link('Sign Out')}
+      end
     end
   end
 end
