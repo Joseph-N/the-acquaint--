@@ -1,0 +1,72 @@
+<% provide(:title, "Sign In")%>
+
+
+    <div id="header">
+    	<div id="wrapper">
+        	<span class="header-bigtext"> HOT OR NOT ?!  </span>
+            <span class="header-smalltext">Upload the best of your photos and find out what really people think about you !!</span>
+    	</div>
+    </div>
+    <div id="wrapper">
+        	<div id="slider">
+      		<div id="myCarousel" class="carousel slide">
+            	<div class="carousel-inner">
+            		<div class="item">
+            			<img src="http://placehold.it/500x300" width="500" height="300" alt="user-1" />
+            			<div class="carousel-caption">
+            				<h4>Rachael</h4>
+            				<p>Loves to make new friends</p>
+            			</div>
+                  	</div>
+                  	<div class="item">
+                    	<img src="http://placehold.it/500x300" width="500" height="300" alt="user-2" />
+                    	<div class="carousel-caption">
+                      		<h4>Sheila</h4>
+                     		<p>Wants to meet new people</p>
+                    	</div>
+                  	</div>
+                  	<div class="item active">
+                    	<img src="http://placehold.it/500x300" width="500" height="300" alt="user-3" />
+                    	<div class="carousel-caption">
+                      		<h4>Cynthia</h4>
+                      		<p>Lets get started!</p>
+                    	</div>
+                  	</div>
+                </div>
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+            </div>
+        </div>
+      <div class="signup" style="margin-top:40px;">
+        <div class="signup-box">
+       	  <div class="signup-header">SIGN IN TO YOUR ACCOUNT</div>
+          <div class="signup-content">
+          	<%= form_for(:session, url: sessions_path) do |f| %>
+          	<% if flash[:error] %>
+          	<div class="alert alert-error"><a class="close" data-dismiss="alert" href="#">&times;</a> <%= flash[:error] %></div>
+          	<% end %>
+              <table width="100%" cellpadding="3">
+                <tr>
+                  <td align="right" valign="middle"><%= f.label :email %></td>
+                  <td valign="middle">:</td>
+                  <td><%= f.text_field :email %></td>
+                </tr>
+                <tr>
+                  <td align="right" valign="middle"><%= f.label :password %></td>
+                  <td valign="middle">:</td>
+                  <td><%= f.password_field :password %></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                  <td><%= f.submit "Sign In", class: "btn" %></td>
+                </tr>
+              </table>
+        	<% end %>
+            <div class="spacer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  

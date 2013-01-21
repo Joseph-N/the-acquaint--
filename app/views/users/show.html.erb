@@ -1,7 +1,8 @@
+<% provide(:title, @user.name) %>
 	<div id="wrapper">
     <div id="profile">
       <div id="photo-info">
-      <h4><%= @user.name %></h4>
+      <h4>Hi <%= @user.name %></h4>
       <div id="photo"><%= gravator_for @user %></div>
       <table width="100%">
         <tr>

@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   
   #Ensure email uniqueness by downcasing the email attribute
   before_save { self.email.downcase! }
+  before_save :create_remember_token
   
   validates :name, presence: true, length: { maximum: 20 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -22,6 +23,12 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   validates :username, presence: true, uniqueness: true, length: { maximum: 20 }
   validates :gender, presence: true
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, length: { minimum: 6 }
   validates :password_confirmation, presence: true
+  
+  private
+  
+  def create_remember_token
+    self.remember_token = SecureRandom.urlsafe_base64
+  end
 end
