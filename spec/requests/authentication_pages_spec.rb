@@ -37,4 +37,9 @@ describe "Authentication" do
       end
     end
   end
+  
+  describe "Authorisation" do
+ 
+    
+  end
 end
