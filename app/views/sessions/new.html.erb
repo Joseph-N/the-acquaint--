@@ -36,7 +36,10 @@
           <div class="signup-content">
           	<%= form_for(:session, url: sessions_path) do |f| %>
           	<% if flash[:error] %>
-          	<div class="alert alert-error"><a class="close" data-dismiss="alert" href="#">&times;</a> <%= flash[:error] %></div>
+          		<div class="alert alert-error"><a class="close" data-dismiss="alert" href="#">&times;</a> <%= flash[:error] %></div>
+          	<% else if flash[:notice] %>
+          		<div class="alert alert-warning"><a class="close" data-dismiss="alert" href="#">&times;</a> <%= flash[:notice] %></div>          	
+          	<% end %>
           	<% end %>
               <table width="100%" cellpadding="3">
                 <tr>
