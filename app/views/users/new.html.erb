@@ -36,7 +36,7 @@
         		<div class="signup-header">SIGN UP FOR AN ACCOUNT</div>
         		<div class="signup-content">
         			 <%= form_for(@user) do |f| %>
-        			  <%= render 'shared/error_messages' %>
+        			  <%= render 'shared/error_messages', object: f.object %>
         			    <table width="100%" cellpadding="3">
                 			<tr>
                   				<td align="right" valign="middle"><%= f.label :First_Name %></td>

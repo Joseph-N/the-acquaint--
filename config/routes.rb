@@ -1,6 +1,9 @@
 Acquianter::Application.routes.draw do
-  resources :users
+  resources :users do
+    resources :comments, only: [:create, :destroy]
+  end
   resources :sessions, only: [:new, :create, :destroy]
+  
   root :to => 'users#new'
 
   match '/about', to: 'static_pages#about'

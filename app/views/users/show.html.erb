@@ -18,7 +18,7 @@
       </div>
       <div id="profile-info">
       	<% if flash[:success] %>
-      	   <div class="alert alert-success"><a class="close" data-dismiss="alert" href="#">&times;</a>Profile Updated</div>
+      	   <div class="alert alert-success"><a class="close" data-dismiss="alert" href="#">&times;</a><%= flash[:success] %></div>
       	<% end %>
         <div class="rating">
         	<span class="pull-left">Average Rating</span>
@@ -72,31 +72,19 @@
       <img src="users/thumb1.jpg" width="150" height="150" alt="" />
       <hr />
       <h4>Leave a comment</h4>
-      <form id="form2" name="form2" method="post" action="">
-        <label for="comments"></label>
-        <textarea name="comments" id="comments" cols="45" rows="3" class="btn-block comment-box"></textarea>
-        <input type="submit" name="comment" id="comment" value="Comment" class="btn" />
-      </form>
-      <div class="sbody">
-  		<div class="simage"><img src="http://placehold.it/50x50"></div>
-  		<div class="stext">Content for  class "stext" Goes Here
-  		<div class="sttime">2 seconds ago</div> 
-  	 </div>
-	</div>
-    
-     <div class="sbody">
-  		<div class="simage"><img src="http://placehold.it/50x50"></div>
-  		<div class="stext">Content for  class "stext" Goes Here
-  		<div class="sttime">2 seconds ago</div> 
-  	 </div>
-	</div>
-    
-     <div class="sbody">
-  		<div class="simage"><img src="http://placehold.it/50x50"></div>
-  		<div class="stext">Content for  class "stext" Goes Here
-  		<div class="sttime">2 seconds ago</div> 
-  	 </div>
-	</div>
+      <%= form_for([@user,@comment]) do |f| %>
+        <% if flash[:error] %>
+            <div class="alert alert-error"><a class="close" data-dismiss="alert" href="#">&times;</a><%= flash[:error] %></div>
+        <% end %>
+        <%= f.text_area :content, cols: 45, rows: 3, class: "btn-block comment-box" %>
+        <%= f.submit "Comment", class: "btn" %>
+      <% end %>
+      <% if @comments.any? %> 
+        <%= render @comments %>
+      <% else %>
+      <p>No comments yet! be the first</p>
+      <% end %>
+      
    
       </div>
     <div class="clear"></div>

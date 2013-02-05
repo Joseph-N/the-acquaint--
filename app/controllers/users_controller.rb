@@ -7,7 +7,11 @@ class UsersController < ApplicationController
   end
   
   def new
-    @user = User.new
+    if signed_in?
+      redirect_to current_user
+    else
+      @user = User.new
+    end
   end
   
   def create
@@ -22,6 +26,9 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    @comments = @user.comments
+    @comment = current_user.comments.build 
+    @users = User.all
   end
   
   def edit
@@ -40,12 +47,6 @@ class UsersController < ApplicationController
   end
   
   private
-    def signed_in_user
-      unless signed_in?
-        store_location
-        redirect_to signin_url, notice: "Please sign in to continue"
-      end
-    end
     
     def correct_user
       @user = User.find(params[:id])

@@ -12,6 +12,7 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :username, :gender, :password, :password_confirmation
   has_secure_password
+  has_many :comments, dependent: :destroy
   
   #Ensure email uniqueness by downcasing the email attribute
   before_save { self.email.downcase! }
