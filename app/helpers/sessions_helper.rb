@@ -39,6 +39,7 @@ module SessionsHelper
     unless signed_in?
       store_location
       redirect_to signin_url, notice: "Please sign in to continue"
-   end
+    end
   end
+  
 end

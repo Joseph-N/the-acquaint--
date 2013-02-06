@@ -2,7 +2,7 @@
 	<div id="wrapper">
     <div id="profile">
       <div id="photo-info">
-      <h4>Hi <%= @user.name %></h4>
+      <h4><%= @user.name %></h4>
       <div id="photo"><%= gravator_for @user %></div>
       <table width="100%">
         <tr>
@@ -13,7 +13,7 @@
       </table>
     <div class="spacer"></div>
       <div class="rating">Quick Stats</div>
-      <p>Member Since <%= @user.created_at %></p>
+      <p><b>Member Since: </b><%= @user.created_at.strftime("%d %b %Y") %></p>
       <p>Last Seen: 8 hours ago</p>
       </div>
       <div id="profile-info">
