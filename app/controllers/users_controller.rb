@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :edit, :update]
+  before_filter :signed_in_user, only: [:edit, :update, :show, :index]
   before_filter :correct_user, only: [:edit, :update]
   
   def index
@@ -28,11 +28,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @comments = @user.comments
     @comment = current_user.comments.build 
-    @users = User.all
+    @profile_pic = @user.photos.first
   end
   
   def edit
-    @user = User.find(params[:id])
+    @user = User.find(params[:id])  
+    2.times { @user.photos.build }
   end
   
   def update

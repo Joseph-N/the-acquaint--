@@ -1,9 +1,17 @@
 <% provide(:title, @user.name) %>
+<% content_for(:head)  do %>
+<% end %>
 	<div id="wrapper">
     <div id="profile">
       <div id="photo-info">
       <h4><%= @user.name %></h4>
-      <div id="photo"><%= gravator_for @user %></div>
+      <div id="photo">
+          <% if @profile_pic == nil %>
+            <%= gravator_for @user %>
+          <% else %>
+            <%= image_tag @profile_pic.image.url(:medium) %> 
+          <% end %>
+      </div>
       <table width="100%">
         <tr>
           <td width="50%" align="center"><button class="btn btn-block" type="button"><i class="icon-thumbs-up"></i> 15</button>
@@ -65,11 +73,10 @@
     <div class="rating">About Me</div>
     <p>The Lisbon Appointment was the decision in 1965 by Britain's self-governing colony in Rhodesia to open its own diplomatic mission in Lisbon, the Portuguese capital, which would operate independently from the British embassy there. Britain objected to the proposal when it was put forward in June 1965, and tried unsuccessfully to block it. The affair came amidst the larger dispute between Whitehall and Salisbury about sovereign independence for the colony. Whitehall insisted that there could be no independence before majority rule, which was opposed by Rhodesia's mostly white government.</p>
         <div class="spacer"></div>
-      <div class="rating">More Photos</div>
-      <a class="fancybox" href="users/user-1.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><img src="users/thumb1.jpg" alt="" /></a>
-      <a class="fancybox" href="users/user-2.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><img src="users/thumb2.jpg" alt="" /></a>
-      <a class="fancybox" href="users/user-3.jpg" data-fancybox-group="gallery" title="Lorem ipsum dolor sit amet"><img src="users/thumb3.jpg" alt="" /></a>
-      <img src="users/thumb1.jpg" width="150" height="150" alt="" />
+      <div class="rating">All Photos</div>
+      <% @user.photos.each do |photo| %>
+        <%= link_to(image_tag(photo.image.url(:thumb)), photo.image.url(:original), class: "fancybox") %>              
+      <% end %>        
       <hr />
       <h4>Leave a comment</h4>
       <%= form_for([@user,@comment]) do |f| %>

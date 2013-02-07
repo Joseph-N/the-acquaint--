@@ -1,7 +1,7 @@
 <% provide(:title, "Edit Profile") %>
 <h3>Update your profile</h3>
 
-<%= form_for(@user) do |f| %>
+<%= form_for @user, :html => { :multipart => true } do |f| %>
 	<%= render 'shared/error_messages', object: f.object %>
 	
 	<%= f.label :name %>
@@ -20,7 +20,24 @@
 	<%= f.password_field :password %>
 	
 	<%= f.label :password_confirmation %>
-	<%= f.password_field :password_confirmation %>
+	<%= f.password_field :password_confirmation %><br />
+	
+	<%= f.fields_for :photos do |photo| %>
+	   <% if photo.object.new_record? %>
+	       <%= photo.file_field :image %>
+	   <% end %>
+	<% end %>
+	
+	 <%= f.fields_for :photos do |photo| %>
+        
+          <% unless photo.object.new_record? %>
+
+                        <%= link_to( image_tag(photo.object.image.url(:small)), photo.object.image.url(:original) ) %>
+                        <%= photo.check_box :_destroy %>
+                
+          <% end %>        
+        
+     <% end %>
 	
 	<%= f.submit "Update Profile", class: "btn" %>
 	
