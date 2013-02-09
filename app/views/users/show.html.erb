@@ -1,5 +1,12 @@
 <% provide(:title, @user.name) %>
 <% content_for(:head)  do %>
+<script>
+    $(document).ready(function() {
+        $("a.fancybox").fancybox({type: 'image'});
+        $('#photo-info').stickyMojo({footerID: '.footer', contentID: '#profile-info'});
+    });
+</script>
+
 <% end %>
 	<div id="wrapper">
     <div id="profile">
@@ -71,11 +78,11 @@
         </table>
     <div class="spacer"></div>
     <div class="rating">About Me</div>
-    <p>The Lisbon Appointment was the decision in 1965 by Britain's self-governing colony in Rhodesia to open its own diplomatic mission in Lisbon, the Portuguese capital, which would operate independently from the British embassy there. Britain objected to the proposal when it was put forward in June 1965, and tried unsuccessfully to block it. The affair came amidst the larger dispute between Whitehall and Salisbury about sovereign independence for the colony. Whitehall insisted that there could be no independence before majority rule, which was opposed by Rhodesia's mostly white government.</p>
+    <p>Write a few words about yourself - your personality, temperament, attitude towards life and people. What makes you stand out from the crowd? What do other people love about you? And what drives them crazy?</p>
         <div class="spacer"></div>
       <div class="rating">All Photos</div>
       <% @user.photos.each do |photo| %>
-        <%= link_to(image_tag(photo.image.url(:thumb)), photo.image.url(:original), class: "fancybox") %>              
+        <%= link_to(image_tag(photo.image.url(:thumb)), photo.image.url(:original), class: "fancybox", rel: "gallery1") %>              
       <% end %>        
       <hr />
       <h4>Leave a comment</h4>
