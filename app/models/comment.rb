@@ -3,6 +3,7 @@ class Comment < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :commenter, foreign_key: 'commenter_id', class_name: 'User'
+  has_one :photo, through: 'user'
   
   validates :user_id, presence: :true
   validates :commenter_id, presence: :true

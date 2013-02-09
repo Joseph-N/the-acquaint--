@@ -1,5 +1,7 @@
 <div class="sbody">
-    <div class="simage"><%= image_tag @profile_pic.image.url(:small) %></div>
+    <div class="simage">
+        <%= image_tag comment.commenter.photos.first.image.url(:small) %>
+    </div>
     <div class="stext">
         <strong><%= link_to comment.commenter.username, comment.commenter %></strong><br />
         <%= comment.content %>

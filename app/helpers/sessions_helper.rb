@@ -42,4 +42,8 @@ module SessionsHelper
     end
   end
   
+  def initialize_users
+    @users = User.last(3)
+  end
+  
 end

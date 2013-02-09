@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_filter :initialize_users, only: [:new, :create]
+  
   def new
   end
   

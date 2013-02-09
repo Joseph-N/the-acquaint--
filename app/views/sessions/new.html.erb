@@ -1,35 +1,7 @@
 <% provide(:title, "Sign In")%>
     <%= render 'layouts/header' %>
     <div id="wrapper">
-        	<div id="slider">
-      		<div id="myCarousel" class="carousel slide">
-            	<div class="carousel-inner">
-            		<div class="item">
-            			<img src="http://placehold.it/500x300" width="500" height="300" alt="user-1" />
-            			<div class="carousel-caption">
-            				<h4>Rachael</h4>
-            				<p>Loves to make new friends</p>
-            			</div>
-                  	</div>
-                  	<div class="item">
-                    	<img src="http://placehold.it/500x300" width="500" height="300" alt="user-2" />
-                    	<div class="carousel-caption">
-                      		<h4>Sheila</h4>
-                     		<p>Wants to meet new people</p>
-                    	</div>
-                  	</div>
-                  	<div class="item active">
-                    	<img src="http://placehold.it/500x300" width="500" height="300" alt="user-3" />
-                    	<div class="carousel-caption">
-                      		<h4>Cynthia</h4>
-                      		<p>Lets get started!</p>
-                    	</div>
-                  	</div>
-                </div>
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
-            </div>
-        </div>
+        <%= render 'shared/slider' %>
       <div class="signup" style="margin-top:40px;">
         <div class="signup-box">
        	  <div class="signup-header">SIGN IN TO YOUR ACCOUNT</div>
