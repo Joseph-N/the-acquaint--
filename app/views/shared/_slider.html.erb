@@ -1,14 +1,17 @@
 <div id="slider">
     <div id="myCarousel" class="carousel slide">
         <div class="carousel-inner">
+            <!-- Temporal fix -->
             <% for user in @users do %>
-                <div class="item">
-                    <%= image_tag user.photos.first.image.url(:large) %>
-                    <div class="carousel-caption">
-                        <h4><%= user.name %></h4>
-                        <p>Loves to make new friends</p>
+                <% if user.photos.any? %>
+                    <div class="item">
+                        <%= image_tag user.photos.first.image.url(:large) %>
+                        <div class="carousel-caption">
+                            <h4><%= user.name %></h4>
+                            <p>Loves to make new friends</p>
+                        </div>
                     </div>
-                </div>
+                <% end %>
             <% end %>          
         </div>
         <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>

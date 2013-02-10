@@ -1,6 +1,6 @@
 <div class="sbody">
     <div class="simage">
-        <%= image_tag comment.commenter.photos.first.image.url(:small) %>
+        <%= thumbnail_for(comment.commenter) %>
     </div>
     <div class="stext">
         <strong><%= link_to comment.commenter.username, comment.commenter %></strong><br />
