@@ -5,8 +5,9 @@ class UsersController < ApplicationController
   
   def index
     #cluttered see model to clean this up
+    #for heroku pg like is strict on case sensitivity
     if params[:search]
-      @users = User.paginate(:conditions => ['name LIKE ?', "%#{params[:search]}%"], page: params[:page], :per_page => 10)
+      @users = User.paginate(:conditions => ['name ilike ?', "%#{params[:search]}%"], page: params[:page], :per_page => 10)
     else
       @users = User.paginate(page: params[:page], :per_page => 10)
     end
