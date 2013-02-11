@@ -9,7 +9,7 @@ describe Comment do
   
   it { should respond_to(:content) }
   it { should respond_to(:user_id) }
-  #it { should respond_to(:commenter_id) }
+  it { should respond_to(:commenter_id) }
   it { should respond_to(:user) }
   its(:user) { should == user }
   
@@ -34,6 +34,11 @@ describe Comment do
   describe "when user_id not present" do
     before { @comment.user_id = nil }
     it { should_not be_valid }    
+  end
+  
+  describe "when commenter_id not present" do
+    before { @comment.commenter_id = nil }
+    it { should_not be_valid }
   end
   
 end

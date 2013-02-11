@@ -133,7 +133,7 @@ body {
   text-align: center;
   padding: 30px 0;
   margin-top: 80px;
-  background-color: #000;
+  background: rgba(0, 0, 0, 0.8);
   color: #FFF;
 }
 
@@ -157,7 +157,7 @@ body {
 }
 
 .rating {
-  background-color: #666;
+  background: rgba(0, 0, 0, 0.5);
   color: #FFF;
   font-size: 16px;
   font-weight: bold;
@@ -203,6 +203,12 @@ body {
   padding: 10px;
   background-color: #F4F4F4;
 }
+.comments {
+  background: rgba(182, 183, 184, 0.31);
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-right: 5px;
+}
 
 .sbody {
   min-height: 70px;
@@ -234,4 +240,30 @@ body {
 .sttime {
   font-size: 12px;
   color: #999;
+}
+#container #wrapper #edit {
+  margin-top: 20px;
+  padding: 5px;
+}
+#container #wrapper #profile #profile-info #user #image {
+  height: 150px;
+  width: 200px;
+  float: left;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: solid thin #ccc;
+  overflow:hidden;
+  
+}
+#container #wrapper #profile #profile-info #user #profile-summary {
+  float: left;
+  margin-left: 15px;
+  width: 400px;
+  padding-top: 5px;
+}
+#container #wrapper #profile #profile-info #user {
+  background-color: #FFF;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  margin-bottom: 15px;
 }

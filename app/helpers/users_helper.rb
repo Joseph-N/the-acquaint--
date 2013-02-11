@@ -10,20 +10,33 @@ module UsersHelper
   end
   
   #returns a default small image for a given gender
-  def default_gender_image(user)
+  def default_gender_image(user,size)
     if user.gender == "male"
-      image_tag("default-male-icon.jpg")
+      if size == "small"
+        image_tag("default-male-icon.jpg")
+      else
+         image_tag("male-default-avatar.png")
+      end
     else
-      image_tag("default-female-icon.jpg")
+      if size == "avator"
+        image_tag("default-female-icon.jpg")
+      else
+        image_tag("female-default-avatar.png")
+      end
+      
     end    
   end
   
   #returns the thubmail for a given user
-  def thumbnail_for(user)
+  def thumbnail_for(user, size)
     if user.photos.any?
-      image_tag user.photos.first.image.url(:small)
+      if size == "small"
+        image_tag user.photos.first.image.url(:small)
+      else
+        image_tag user.photos.first.image.url(:avator)
+      end      
     else
-      default_gender_image(user)
+      default_gender_image(user,size)
     end
   end
   

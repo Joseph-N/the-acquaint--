@@ -1,11 +1,39 @@
 <% provide(:title, "All users") %>
-<h1>All users</h1>
-<%= will_paginate %>
-<ul>
-	<% for user in @users do %>
-	   <li><%= thumbnail_for(user) %> <%= link_to user.name, user %></li><br />
-	<% end %>
-</ul>
-<%= will_paginate %>
+<% content_for(:head)  do %>
+<script>
+    $(document).ready(function() {
+        $('#photo-info').stickyMojo({footerID: '.footer', contentID: '#profile-info'});
+    });
+</script>
+<% end %>
+<div id="wrapper">
+    <div id="profile">
+        <div id="photo-info">
+            <h4>Top Female</h4>
+            <div id="photo">
+                <!-- wrong!!! just a placeholder -->
+                <%= image_tag User.last.photos.first.image.url(:rated) %>
+                <div class="spacer"></div>
+                <button class="btn btn-inverse btn-mini">View Profile</button> 
+                <span class="pull-right">966 votes</span>
+            </div>
+            <div class="spacer"></div>
+            <h4>Top Male</h4>
+            <div id="photo">
+                <%= image_tag User.last.photos.first.image.url(:rated) %>
+                <div class="spacer"></div>
+                <button class="btn btn-inverse btn-mini">View Profile</button> 
+                <span class="pull-right">966 votes</span>
+            </div>
+        </div>
+        <div id="profile-info">
+            <div class="rating">All users</div>
+            <%= render 'layouts/users'%>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+
 
 

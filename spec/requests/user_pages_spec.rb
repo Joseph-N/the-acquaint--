@@ -46,7 +46,7 @@ describe "User Pages" do
         before { click_button submit }
         let(:user) { User.find_by_email('jojoartz@yahoo.com') }
         
-        it { should have_selector('h4',text: 'Hi Joseph' )}
+        it { should have_selector('h4',text: 'Joseph' )}
         it { should have_link('Sign Out')}
       end
     end

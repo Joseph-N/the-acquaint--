@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_filter :initialize_users, only: [:new, :create]
   
   def index
-    @users = User.paginate(page: params[:page], :per_page => 15)
+    @users = User.paginate(page: params[:page], :per_page => 10)
   end
   
   def new
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   
   def edit
     @user = User.find(params[:id])  
-    2.times { @user.photos.build }
+    remaining_uploads(@user).times { @user.photos.build }
   end
   
   def update
@@ -53,5 +53,11 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
+    end
+    
+    def remaining_uploads(user)
+      max_photos = 4
+      user_photos = user.photos.count
+      diff = max_photos - user_photos            
     end
 end

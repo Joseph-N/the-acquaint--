@@ -91,13 +91,15 @@
             <div class="alert alert-error"><a class="close" data-dismiss="alert" href="#">&times;</a><%= flash[:error] %></div>
         <% end %>
         <%= f.text_area :content, cols: 45, rows: 3, class: "btn-block comment-box" %>
-        <%= f.submit "Comment", class: "btn" %>
+        <%= f.submit "Comment", class: "btn" %><div class="rating pull-right"><%= image_tag "comment.png" %> <%= pluralize(@user.comments.count, "comment") %> so far</div>
       <% end %>
-      <% if @comments.any? %> 
-        <%= render @comments %>
+      <% if @comments.any? %>
+        <div class="comments">
+            <%= render @comments %>
       <% else %>
-      <p>No comments yet! be the first</p>
+        <p>No comments yet! be the first</p>
       <% end %>
+      </div>
       
    
       </div>

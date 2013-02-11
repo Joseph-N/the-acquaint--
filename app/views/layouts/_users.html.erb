@@ -1,0 +1,15 @@
+<% for user in @users do %>
+    <div id="user">
+        <div id="image"><%= thumbnail_for(user, "avator") %></div>
+        <div id="profile-summary">
+            <p>
+                <strong><%= user.name %></strong>
+            </p>
+            <p>Load external resources when u need them keep mobile images size less than 1kb support the mobile experience well
+            provide large click areas around your links use whitespace to </p>
+            <p><%= link_to "view profile", user %></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+<% end %>
+<%= will_paginate %>
