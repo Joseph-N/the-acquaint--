@@ -24,6 +24,7 @@ end
 
 group :development do
   gem 'annotate', '2.5.0'
+  gem 'sunspot_solr'
 end
 
 

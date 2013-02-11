@@ -31,9 +31,9 @@ module UsersHelper
   def thumbnail_for(user, size)
     if user.photos.any?
       if size == "small"
-        image_tag user.photos.first.image.url(:small)
+        image_tag user.photos.first.image.url(:small), alt: user.name, width: "50", height: "50"
       else
-        image_tag user.photos.first.image.url(:avator)
+        image_tag user.photos.first.image.url(:avator), alt: user.name, width: "200", height: "150"
       end      
     else
       default_gender_image(user,size)

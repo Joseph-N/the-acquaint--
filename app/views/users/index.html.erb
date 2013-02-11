@@ -26,7 +26,14 @@
             </div>
         </div>
         <div id="profile-info">
-            <div class="rating">All users</div>
+            <span class="pull-left"><h4>All Users</h4> </span>
+            <div class="span6 pull-right">
+                <%= form_tag users_path, method: 'get', class: "form-inline pull-right" do %>
+                    <%= text_field_tag :search, params[:search], placeholder: "Type a name to search" %>
+                    <%= submit_tag "Search", class: 'btn', name: nil %>
+                <% end %>
+            </div>
+            <div class="clear"></div>
             <%= render 'layouts/users'%>
         </div>
         <div class="clear"></div>

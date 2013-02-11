@@ -4,7 +4,12 @@ class UsersController < ApplicationController
   before_filter :initialize_users, only: [:new, :create]
   
   def index
-    @users = User.paginate(page: params[:page], :per_page => 10)
+    #cluttered see model to clean this up
+    if params[:search]
+      @users = User.paginate(:conditions => ['name LIKE ?', "%#{params[:search]}%"], page: params[:page], :per_page => 10)
+    else
+      @users = User.paginate(page: params[:page], :per_page => 10)
+    end
   end
   
   def new
