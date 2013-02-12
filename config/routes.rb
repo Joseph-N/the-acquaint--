@@ -10,6 +10,8 @@ Acquianter::Application.routes.draw do
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
+  match "/users/:id/rate", to: 'users#rate', as: 'rate_user', via: :post
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

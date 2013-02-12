@@ -4,7 +4,7 @@
     </div>
     <div class="stext">
         <strong><%= link_to comment.commenter.username, comment.commenter %></strong><br />
-        <%= comment.content %>
+        <%= auto_link(comment.content, html: { target: '_blank' }) %>
         <div class="sttime">
             <%= time_ago_in_words(comment.created_at) %> ago            
         </div> 

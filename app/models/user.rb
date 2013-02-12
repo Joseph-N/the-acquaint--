@@ -12,6 +12,8 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :username, :gender, :password, :password_confirmation, :photos_attributes
   has_secure_password
+  ajaxful_rater
+  ajaxful_rateable stars: 5, allow_update: false
   
   has_many :comments, dependent: :destroy
   has_many :photos, dependent: :destroy

@@ -22,8 +22,7 @@ module UsersHelper
         image_tag("default-female-icon.jpg")
       else
         image_tag("female-default-avatar.png")
-      end
-      
+      end 
     end    
   end
   
@@ -38,6 +37,43 @@ module UsersHelper
     else
       default_gender_image(user,size)
     end
+  end
+  
+  #returns avator for highest rated user
+  def avator_for(user, gender)
+    if user.photos.any?
+      image_tag user.photos.first.image.url(:rated), alt: user.name, width: "250", height: "250", title: user.name
+    else
+      if gender == "male"
+        image_tag "default_rated_male.png",alt: user.name, width: "250", height: "250",title: user.name
+      else
+        image_tag "default_rated_female.png",alt: user.name, width: "250", height: "250", title: user.name
+      end
+    end
+  end
+
+  
+  #returns text_helper for average rating
+  def average_text(score)
+    case score
+    when 0
+      'Not yet rated'
+    when 1
+      'Not attractive'
+    when 2
+      'Respectable'
+    when 3
+      'Decent or Attractive'
+    when 4
+      'Girlfriend Material'
+    else
+      'Supper Hottie'
+    end      
+  end
+  
+  #returns average as a percentage
+  def percentagize(average)
+    number_with_precision(((average / 5) * 100), precision: 1)
   end
   
 end

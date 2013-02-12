@@ -3,10 +3,10 @@
 <script>
     $(document).ready(function() {
         $("a.fancybox").fancybox({type: 'image'});
+        $("#rating").popover({trigger: 'hover', placement: 'top'});
         $('#photo-info').stickyMojo({footerID: '.footer', contentID: '#profile-info'});
     });
 </script>
-
 <% end %>
 	<div id="wrapper">
     <div id="profile">
@@ -36,16 +36,16 @@
       	   <div class="alert alert-success"><a class="close" data-dismiss="alert" href="#">&times;</a><%= flash[:success] %></div>
       	<% end %>
         <div class="rating">
-        	<span class="pull-left">Average Rating</span>
+        	<span class="pull-left">Rating Stats</span>
        	  <div class="clear"></div>
         </div>
         <table width="617">
           <tr>
-          <td width="29%" height="130" align="center"><%= image_tag("star.png",width: 128, height: 128, alt: "star")%></td>
+          <td width="29%" height="130" align="center"><%= image_tag("big_star.png",width: 128, height: 128, alt: "star")%></td>
           <td width="71%" colspan="2" rowspan="2" valign="top"><table width="100%" cellpadding="5" class="table-hover">
             <tr>
               <td width="36%"><strong>Total Votes</strong></td>
-              <td width="64%"> 1500</td>
+              <td width="64%"><%= @user.rates_sum %></td>
             </tr>
             <tr>
               <td><strong>Profile Views</strong></td>
@@ -56,24 +56,24 @@
               <td>#85</td>
             </tr>
           </table>
-<br /><p class="smart-title">Rank Cynthia</p>
-            <form id="form1" name="form1" method="post" action="">
-              <p>
-                <label for="ratebox"></label>
-                <select name="ratebox" id="ratebox" class="span4">
-                  <option>Give your rating</option>
-                  <option value="1">1 - Not attractive</option>
-                  <option value="2">2 - Respectable</option>
-                  <option value="3">3 - Decent or Attractive</option>
-                  <option value="4">4 - Girlfriend Material</option>
-                  <option value="5">5 - Super Hottie</option>
-                </select>
-              </p>
-          </form>
-            <p><b>Average Overview </b> <span class="label label-warning">Girlfriend Material</span></p></td>
+<br />
+          <% if current_user?(@user) %>
+          <p class="smart-title">Your Current Rating &rarr; <%= number_with_precision(@average, precision: 2) %> out of 5</p>
+            <%= ratings_for @user, :static %>
+          <% else %>
+            <% if @user.rated_by?(current_user) %>
+                <p class="smart-title">Global average <%= number_with_precision(@average, precision: 2) %> out of 5</p>
+             <% else %>
+                <p class="smart-title">Rate <%= @user.name %> <small class="pull-right"><a href="#" id="rating" rel="popover" data-content="It's so simple to create a tooltop for my website!" data-original-title="Twitter Bootstrap Popover">Hover for Key</a></small></p>
+            <% end %>
+            <%= ratings_for @user %>
+          <% end %>   
+          <br />
+          <a href="#" id="rating" class="btn btn-inverse" rel="popover" data-content="It's so simple to create a tooltop for my website!" data-original-title="Twitter Bootstrap Popover"><%= average_text(@average) %></a></p></td>
+   
           </tr>
           <tr>
-            <td height="83" align="center" valign="middle"><span class="clear"><span class="big-rating">85%</span></span></td>
+            <td height="83" align="center" valign="middle"><span class="clear"><span class="big-rating"><%= percentagize(@average) %>%</span></span></td>
           </tr>
         </table>
     <div class="spacer"></div>
@@ -91,7 +91,7 @@
             <div class="alert alert-error"><a class="close" data-dismiss="alert" href="#">&times;</a><%= flash[:error] %></div>
         <% end %>
         <%= f.text_area :content, cols: 45, rows: 3, class: "btn-block comment-box" %>
-        <%= f.submit "Comment", class: "btn" %><div class="rating pull-right"><%= image_tag "comment.png" %> <%= pluralize(@user.comments.count, "comment") %> so far</div>
+        <%= f.submit "Comment", class: "btn" %><div class="pull-right"><%= image_tag "comment.png" %> <%= pluralize(@user.comments.count, "comment") %> so far</div>
       <% end %>
       <% if @comments.any? %>
         <div class="comments">

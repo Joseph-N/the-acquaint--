@@ -8,6 +8,7 @@ gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 gem "cocaine", "= 0.3.2"
 gem "paperclip", "= 3.0.4"
+gem "ajaxful_rating", "~> 3.0.0.beta8"
 
 
 # Bundle edge Rails instead:
@@ -41,6 +42,7 @@ end
 
 gem 'jquery-rails'
 gem 'fancybox-rails'
+gem 'rails_autolink'
 
 group :test do
   gem 'capybara','1.1.2'

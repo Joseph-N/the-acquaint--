@@ -9,20 +9,12 @@
 <div id="wrapper">
     <div id="profile">
         <div id="photo-info">
-            <h4>Top Female</h4>
+            <h4>Highest Rated!</h4>
             <div id="photo">
-                <img src="http://placehold.it/250x250" width="250" height="250" alt="user-4" />
+                <%= avator_for(@most_popular, @most_popular.gender) %>
                 <div class="spacer"></div>
-                <button class="btn btn-inverse btn-mini">View Profile</button> 
-                <span class="pull-right">966 votes</span>
-            </div>
-            <div class="spacer"></div>
-            <h4>Top Male</h4>
-            <div id="photo">
-                <img src="http://placehold.it/250x250" width="250" height="250" alt="user-4" />
-                <div class="spacer"></div>
-                <button class="btn btn-inverse btn-mini">View Profile</button> 
-                <span class="pull-right">966 votes</span>
+                <%= link_to(raw("<i class='icon-share-alt icon-white'></i> view profile"), @most_popular, class: "btn btn-inverse btn-mini")  %>
+                <span class="pull-right">Score: <%= percentagize(@most_popular.rate_average) %>%</span>
             </div>
         </div>
         <div id="profile-info">

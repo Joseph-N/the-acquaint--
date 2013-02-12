@@ -4,10 +4,11 @@ class UsersController < ApplicationController
   before_filter :initialize_users, only: [:new, :create]
   
   def index
+    @most_popular = User.find_most_popular
     #cluttered see model to clean this up
-    #for heroku pg like is strict on case sensitivity
+    #for heroku pg user ilike in query to eliminate case sensitive searches
     if params[:search]
-      @users = User.paginate(:conditions => ['name ilike ?', "%#{params[:search]}%"], page: params[:page], :per_page => 10)
+      @users = User.paginate(:conditions => ['name LIKE ?', "%#{params[:search]}%"], page: params[:page], :per_page => 10)
     else
       @users = User.paginate(page: params[:page], :per_page => 10)
     end
@@ -36,6 +37,7 @@ class UsersController < ApplicationController
     @comments = @user.comments
     @comment = current_user.comments.build 
     @profile_pic = @user.photos.first
+    @average = @user.rate_average
   end
   
   def edit
@@ -53,6 +55,15 @@ class UsersController < ApplicationController
       render 'edit'
     end    
   end
+  
+  def rate
+    @user = User.find(params[:id])
+    @user.rate(params[:stars], current_user, params[:dimension])
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   
   private
     
