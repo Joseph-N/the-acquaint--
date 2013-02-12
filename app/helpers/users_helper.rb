@@ -19,9 +19,11 @@ module UsersHelper
       end
     else
       if size == "avator"
-        image_tag("default-female-icon.jpg")
-      else
-        image_tag("female-default-avatar.png")
+        if size == "small"
+          image_tag("default-female-icon.jpg")
+        else
+          image_tag("female-default-avatar.png")
+        end
       end 
     end    
   end
