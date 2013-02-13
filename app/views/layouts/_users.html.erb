@@ -4,11 +4,11 @@
         <div id="profile-summary">
             <p>
                 <strong><%= user.name %></strong>
+                <span class="pull-right">Score: <b><%= percentagize(user.rate_average) %>%</b></span>
             </p>
             <p>Load external resources when u need them keep mobile images size less than 1kb support the mobile experience well
             provide large click areas around your links use whitespace to </p>
-            <p><%= link_to(raw("<i class='icon-share-alt'></i> view profile"), user, class: "btn")  %>
-</p>
+            <p><%= link_to(raw("<i class='icon-share-alt'></i> view profile"), user, class: "btn")  %></p>
         </div>
         <div class="clear"></div>
     </div>

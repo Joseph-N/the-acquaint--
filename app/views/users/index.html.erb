@@ -14,7 +14,7 @@
                 <%= avator_for(@most_popular, @most_popular.gender) %>
                 <div class="spacer"></div>
                 <%= link_to(raw("<i class='icon-share-alt icon-white'></i> view profile"), @most_popular, class: "btn btn-inverse btn-mini")  %>
-                <span class="pull-right">Score: <%= percentagize(@most_popular.rate_average) %>%</span>
+                <span class="pull-right">Score: <b><%= percentagize(@most_popular.rate_average) %>%</b></span>
             </div>
         </div>
         <div id="profile-info">
