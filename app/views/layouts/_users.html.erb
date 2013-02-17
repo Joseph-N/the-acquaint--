@@ -3,7 +3,7 @@
         <div id="image"><%= thumbnail_for(user, "avator") %></div>
         <div id="profile-summary">
             <p>
-                <strong><%= user.name %></strong>
+                <strong><%= user.name %></strong> <small>(<%= user.username %>)</small>
                 <span class="pull-right">Score: <b><%= percentagize(user.rate_average) %>%</b></span>
             </p>
             <p>Load external resources when u need them keep mobile images size less than 1kb support the mobile experience well

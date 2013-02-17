@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.12'
 gem 'json', '1.7.7'
 gem 'bootstrap-sass', '2.1'
 gem 'bcrypt-ruby', '3.0.1'
@@ -10,6 +10,7 @@ gem 'bootstrap-will_paginate', '0.0.6'
 gem "cocaine", "= 0.3.2"
 gem "paperclip", "= 3.0.4"
 gem "ajaxful_rating", "~> 3.0.0.beta8"
+gem 'mailboxer'
 
 
 # Bundle edge Rails instead:
@@ -22,6 +23,7 @@ group :development, :test do
   gem 'guard-spork', '1.2.0'
   gem 'spork', '0.9.2'
   gem 'factory_girl_rails', '4.1.0'
+  gem 'thin'
 end
 
 group :development do

@@ -5,10 +5,49 @@
         $("a.fancybox").fancybox({type: 'image'});
         $("#rating").popover({trigger: 'hover', placement: 'top'});
         $('#photo-info').stickyMojo({footerID: '.footer', contentID: '#profile-info'});
-        $('.ajaxful-rating-wrapper').click(function() {
+        $('#submit').click(function() {
                 location.reload();
         });
-    });
+        $('.stars-1').hover(
+            function(){
+                $('#description').html("<p>Not attractive</p>")
+            },
+            function(){
+                $('#description').html("");
+            });
+        $('.stars-2').hover(
+            function(){
+                $('#description').html("<p>Respectable</p>")
+            },
+            function(){
+                $('#description').html("");
+            });
+
+        $('.stars-3').hover(
+            function(){
+                $('#description').html("<p>Decent/Attractive</p>")
+            },
+            function(){
+                $('#description').html("");
+            });
+
+        $('.stars-4').hover(
+            function(){
+                $('#description').html("<p>Girlfriend Material</p>")
+            },
+            function(){
+                $('#description').html("");
+            });
+            
+        $('.stars-5').hover(
+            function(){
+                $('#description').html("<p>Supper Hottie!</p>")
+            },
+            function(){
+                $('#description').html("");
+            });
+        });
+
 </script>
 <% end %>
 	<div id="wrapper">
@@ -22,14 +61,11 @@
             <%= image_tag @profile_pic.image.url(:medium) %> 
           <% end %>
       </div>
-      <table width="100%">
-        <tr>
-          <td width="50%" align="center"><button class="btn btn-block" type="button"><i class="icon-thumbs-up"></i> 15</button>
-</td>
-          <td width="50%" align="center"><button class="btn btn-block" type="button"><i class="icon-thumbs-down"></i> 5</button></td>
-        </tr>
-      </table>
-    <div class="spacer"></div>
+      <div class="btn-block" style="margin-bottom: 10px;">
+          <div class="pull-left" style="width: 48%;"><button class="btn btn-block" type="button"><i class="icon-thumbs-up"></i> 15</button></div>
+          <div class="pull-right" style="width: 48%;"><button class="btn btn-block" type="button"><i class="icon-thumbs-down"></i> 5</button></div>
+      </div>
+    <div class="spacer clear"></div>
       <div class="rating">Quick Stats</div>
       <p><b>Member Since: </b><%= @user.created_at.strftime("%d %b %Y") %></p>
       <p>Last Seen: 8 hours ago</p>
@@ -38,10 +74,10 @@
       	<% if flash[:success] %>
       	   <div class="alert alert-success"><a class="close" data-dismiss="alert" href="#">&times;</a><%= flash[:success] %></div>
       	<% end %>
-        <div class="rating">
-        	<span class="pull-left">Rating Stats</span>
-        	<span class="pull-right">Total Voters: <%= @user.total_rates %></span>
-       	  <div class="clear"></div>
+      	  <div class="rating">
+            <span class="pull-left">Rating Stats</span>
+            <span class="pull-right">Total Voters: <%= @user.total_rates %></span>
+          <div class="clear"></div>
         </div>
         <table width="617">
           <tr>
@@ -68,27 +104,30 @@
           <% if current_user?(@user) %>
             <%= ratings_for @user, :static %>
           <% else %>
-            <% if !@user.rated_by?(current_user) %>
-                <p class="smart-title">Rate <%= @user.name %> <small class="pull-right"><a href="#" id="rating" rel="popover" data-content="It's so simple to create a tooltop for my website!" data-original-title="Twitter Bootstrap Popover">Hover for Key</a></small></p>
+            <% if @user.rated_by?(current_user) %>
+                <%= ratings_for @user %>
+             <% else %>
+                <p class="smart-title">Rate <%= @user.name %> <small class="pull-right" id="description"></small></p>
+                <button class="pull-right btn" id="submit">submit ratings</button> 
+                <%= ratings_for @user, :show_user_rating => true %>               
             <% end %>
-            <%= ratings_for @user %>
+            
           <% end %>   
-          <br />
-          <a href="#" id="rating" class="btn btn-inverse" rel="popover" data-content="It's so simple to create a tooltop for my website!" data-original-title="Twitter Bootstrap Popover"><%= average_text(@average) %></a></p></td>
-   
+          <br />   
           </tr>
           <tr>
             <td height="83" align="center" valign="middle"><span class="clear"><span class="big-rating"><%= percentagize(@average) %>%</span></span></td>
           </tr>
         </table>
-    <div class="spacer"></div>
-    <div class="rating">About Me</div>
+        <div class="spacer"></div>
+        <div class="rating">About Me</div>
     <p>Write a few words about yourself - your personality, temperament, attitude towards life and people. What makes you stand out from the crowd? What do other people love about you? And what drives them crazy?</p>
         <div class="spacer"></div>
       <div class="rating">All Photos</div>
       <% @user.photos.each do |photo| %>
         <%= link_to(image_tag(photo.image.url(:thumb)), photo.image.url(:original), class: "fancybox", rel: "gallery1") %>              
-      <% end %>        
+      <% end %>
+    <div class="spacer"></div>        
       <hr />
       <h4>Leave a comment</h4>
       <%= form_for([@user,@comment]) do |f| %>

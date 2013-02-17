@@ -4,6 +4,11 @@
 				<div class="navbar-inner">
 					<div class="container">
 						<%= link_to "The Acquianter", root_path, class: "brand"  %>
+						<% if signed_in? %>
+                            <%= form_tag users_path, method: 'get', class: "navbar-search pull-left" do %>
+                                <%= text_field_tag :search, params[:search], placeholder: "Search by name or username", class: "search-query", "data-provide" => "typeahead" %>                                
+                            <% end %>
+                        <% end %>
 						<div class="nav-collapse">
 							<ul class="nav pull-right">
 								<% if signed_in? %>

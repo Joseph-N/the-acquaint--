@@ -4,11 +4,13 @@ class UsersController < ApplicationController
   before_filter :initialize_users, only: [:new, :create]
   
   def index
+    
     @most_popular = User.find_most_popular
+    @typeahead = User.select(:name).to_json
     #cluttered see model to clean this up
     #for heroku pg user ilike in query to eliminate case sensitive searches
     if params[:search]
-      @users = User.paginate(:conditions => ['name LIKE ?', "%#{params[:search]}%"], page: params[:page], :per_page => 10)
+      @users = User.paginate(:conditions => ['name LIKE ? OR username LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%"], page: params[:page], :per_page => 10)
     else
       @users = User.paginate(page: params[:page], :per_page => 10)
     end
