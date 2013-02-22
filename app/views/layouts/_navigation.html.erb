@@ -6,7 +6,8 @@
 						<%= link_to "The Acquianter", root_path, class: "brand"  %>
 						<% if signed_in? %>
                             <%= form_tag users_path, method: 'get', class: "navbar-search pull-left" do %>
-                                <%= text_field_tag :search, params[:search], placeholder: "Search by name or username", class: "search-query", "data-provide" => "typeahead" %>                                
+                                <%= text_field_tag :search, params[:search], placeholder: "Search by name or username", class: "search-query span4", "data-provide" => "typeahead" %>  
+                                <%= image_submit_tag "search.png", :type => :image, class: "search", name: nil %>                              
                             <% end %>
                         <% end %>
 						<div class="nav-collapse">

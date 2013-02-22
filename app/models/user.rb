@@ -9,9 +9,11 @@
 #  updated_at :datetime         not null
 #
 
-class User < ActiveRecord::Base
+class User < ActiveRecord::Base  
   attr_accessible :email, :name, :username, :gender, :password, :password_confirmation, :photos_attributes
+  
   has_secure_password
+  acts_as_messageable
   ajaxful_rater
   ajaxful_rateable stars: 5, allow_update: false
   
@@ -37,5 +39,8 @@ class User < ActiveRecord::Base
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
   end
-  
+
+  def mailboxer_email(object)
+    self.email
+  end  
 end

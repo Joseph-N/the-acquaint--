@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     
     @most_popular = User.find_most_popular
     @typeahead = User.select(:name).to_json
+    @rank = rank
     #cluttered see model to clean this up
     #for heroku pg user ilike in query to eliminate case sensitive searches
     if params[:search]
@@ -40,6 +41,7 @@ class UsersController < ApplicationController
     @comment = current_user.comments.build 
     @profile_pic = @user.photos.first
     @average = @user.rate_average
+    @rank = rank.index(@average)
   end
   
   def edit
@@ -79,4 +81,14 @@ class UsersController < ApplicationController
       user_photos = user.photos.count
       diff = max_photos - user_photos            
     end
+    
+    def rank
+      users = User.all
+      scores = []
+      for user in users do
+        scores.push(user.rate_average)
+      end
+      scores.sort!.reverse!
+    end
+    
 end

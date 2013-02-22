@@ -4,7 +4,7 @@
         <div id="profile-summary">
             <p>
                 <strong><%= user.name %></strong> <small>(<%= user.username %>)</small>
-                <span class="pull-right">Score: <b><%= percentagize(user.rate_average) %>%</b></span>
+                <span class="pull-right small">Score: <b><%= percentagize(user.rate_average) %>%</b>&nbsp;&nbsp; Ranked: <b><%= (@rank.index(user.rate_average) + 1).ordinalize %></b></span>
             </p>
             <p>Load external resources when u need them keep mobile images size less than 1kb support the mobile experience well
             provide large click areas around your links use whitespace to </p>

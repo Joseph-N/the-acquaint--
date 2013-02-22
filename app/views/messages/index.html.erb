@@ -1,0 +1,7 @@
+<ul>
+    <% @receipts.each do |receipt| %> 
+        <li><%= receipt.message.sender.name %>:> 
+            <%= receipt.message.body %></li>
+    <% end %>
+         
+</ul>

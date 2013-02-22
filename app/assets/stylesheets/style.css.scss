@@ -14,8 +14,40 @@ body {
   padding: 0;
   height: 100%;
   padding-top: 40px;
-  background-image: url(bg.png);
-  background-repeat: repeat;
+  background: #fafafa url("bg.png") fixed repeat-x 0 0;
+}
+h1, h2, h3, h4, h5, h6 {
+  color: #595959;
+  line-height: 1.25em;
+  text-shadow: #ffffff 0 1px 0;
+}
+
+h1 {
+  font-size: 23px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 15px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+p {
+  text-shadow: #ffffff 0 1px 1px;
 }
 
 .navbar-inner {
@@ -204,8 +236,9 @@ body {
   padding: 10px;
   background-color: #F4F4F4;
 }
+
 .comments {
-  background: rgba(182, 183, 184, 0.31);
+  background: #f0f0f0;
   padding-left: 5px;
   padding-top: 5px;
   padding-right: 5px;
@@ -216,7 +249,7 @@ body {
   margin-bottom: 10px;
   border-bottom-width: 1px;
   border-bottom-style: dashed;
-  border-bottom-color: #333333;
+  border-bottom-color: #999;
 }
 
 .simage {
@@ -235,42 +268,65 @@ body {
   overflow: hidden;
   padding: 5px;
   display: block;
-  font-family: "Georgia", Times New Roman, Times, serif;
+  text-shadow: #ffffff 0 1px 1px;
 }
 
 .sttime {
   font-size: 12px;
   color: #999;
 }
-#container #wrapper #edit {
-  margin-top: 20px;
-  padding: 5px;
+
+#container #wrapper {
+  #edit {
+    margin-top: 20px;
+    padding: 5px;
+  }
+  #profile #profile-info #user {
+    #image {
+      height: 150px;
+      width: 200px;
+      float: left;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      border-right: solid thin #ccc;
+      overflow: hidden;
+    }
+    #profile-summary {
+      float: left;
+      margin-left: 15px;
+      width: 400px;
+      padding-top: 5px;
+    }
+    background-color: #FFF;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin-bottom: 15px;
+  }
 }
-#container #wrapper #profile #profile-info #user #image {
-  height: 150px;
-  width: 200px;
-  float: left;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  border-right: solid thin #ccc;
-  overflow:hidden;
-  
-}
-#container #wrapper #profile #profile-info #user #profile-summary {
-  float: left;
-  margin-left: 15px;
-  width: 400px;
-  padding-top: 5px;
-}
-#container #wrapper #profile #profile-info #user {
-  background-color: #FFF;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  margin-bottom: 15px;
-}
+
 .add-margin {
   margin-left: 30px;
 }
-small{
+
+small {
   color: #999999;
+}
+
+.search {
+  background-color: transparent;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 300px;
+  top: 6px;
+}
+
+.navbar-inverse .navbar-search .search-query {
+  background-color: rgb(165, 165, 165);
+}
+.small {
+  color: #8c8c8c;
+  font-size: 11px;
+  line-height: 13px;
+  padding: 2px 0 2px 17px;
 }

@@ -1,6 +1,7 @@
 Acquianter::Application.routes.draw do
   resources :users do
     resources :comments, only: [:create, :destroy]
+    resources :messages
   end
   resources :sessions, only: [:new, :create, :destroy]
   

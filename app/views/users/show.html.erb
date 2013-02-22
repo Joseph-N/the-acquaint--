@@ -53,7 +53,11 @@
 	<div id="wrapper">
     <div id="profile">
       <div id="photo-info">
-      <h4><%= @user.name %></h4>
+          <% if current_user?(@user) %>
+            <h4><%= @user.name %></h4>
+          <% else %>
+             <h4><%= @user.name %>'s profile</h4>
+          <% end %>
       <div id="photo">
           <% if @profile_pic == nil %>
             <%= gravator_for @user %>
@@ -93,7 +97,7 @@
             </tr>
             <tr>
               <td><strong>Current Position</strong></td>
-              <td>#85</td>
+              <td>#<%= @rank + 1 %></td>
             </tr>
             <tr>
               <td><strong>Global Average</strong></td>
