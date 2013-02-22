@@ -23,7 +23,6 @@ group :development, :test do
   gem 'guard-spork', '1.2.0'
   gem 'spork', '0.9.2'
   gem 'factory_girl_rails', '4.1.0'
-  gem 'thin'
 end
 
 group :development do
@@ -46,6 +45,7 @@ end
 gem 'jquery-rails'
 gem 'fancybox-rails'
 gem 'rails_autolink'
+gem 'thin'
 
 group :test do
   gem 'capybara','1.1.2'
