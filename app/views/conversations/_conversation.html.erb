@@ -1,14 +1,17 @@
 <div class="sbody">
-	<div class="simage"><%= thumbnail_for(get_sender(conversation.subject), "small") %></div>
-  	<div class="stext"><b><%= get_sender(conversation.subject).name %></b> 
-  		<%= link_to conversation.subject, conversation, class: "conversation" %>
-  		<span class="pull-right">
-  			   <% if conversation.is_completely_trashed?(current_user) %>
-     <%=  link_to 'untrash', [:untrash, conversation], method: :post %>
-    <% else %>
-      <%= link_to(raw('<i class="icon-trash"></i> Delete'),[:trash, conversation], method: :post,  "data-confirm" => "Are you sure you want to delete this conversation?", class: "delete") %>
-    <% end %>
-  		</span>
-  		<div class="sttime">2 seconds ago</div> 
-  	 </div>
+	<div class="simage">
+		<%= thumbnail_for(get_sender(conversation.subject), "small") %>
+	</div>
+	<div class="stext">
+		<b><%= get_sender(conversation.subject).name %></b>
+		<%= link_to conversation.subject, conversation, class: "conversation" %>
+		<span class="pull-right"> <% if conversation.is_completely_trashed?(current_user) %>
+			<%= link_to 'untrash', [:untrash, conversation], method: :post %>
+			<% else %>
+			<%= link_to(raw('<i class="icon-trash"></i> Delete'),[:trash, conversation], method: :post,  "data-confirm" => "Are you sure you want to delete this conversation?", class: "delete") %>
+			<% end %> </span>
+		<div class="sttime">
+			2 seconds ago
+		</div>
+	</div>
 </div>
