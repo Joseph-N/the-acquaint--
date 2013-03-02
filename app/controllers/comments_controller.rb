@@ -7,10 +7,10 @@ class CommentsController < ApplicationController
     @comment = @user.comments.build(params[:comment])
     @comment.commenter_id = current_user.id
     if @comment.save
-      redirect_to @user
-    else
-      flash[:error] = "There was a problem posting your comment"
-      redirect_to @user
+      respond_to do |format|
+        format.html { redirect_to @user }
+        format.js
+      end
     end
   end
 

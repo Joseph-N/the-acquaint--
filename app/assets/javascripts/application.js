@@ -14,3 +14,6 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+jQuery.ajaxSetup({
+	'beforeSend': function (xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+});

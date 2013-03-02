@@ -1,9 +1,15 @@
 Acquianter::Application.routes.draw do
   resources :users do
     resources :comments, only: [:create, :destroy]
-    resources :messages
   end
   resources :sessions, only: [:new, :create, :destroy]
+    resources :conversations, only: [:index, :show, :new, :create] do
+      member do
+        post :reply
+        post :trash
+        post :untrash
+      end
+    end
   
   root :to => 'users#new'
 

@@ -1,0 +1,14 @@
+<div id="wrapper">
+    <div id="profile">
+		<%= form_for :conversation, url: :conversations do |f| %>			
+			<fieldset>
+		    <legend>Send a message to <%= session[:user_name] %></legend>
+		    <%= f.label :subject %>
+		    <%= f.text_field :subject %>
+		    <%= f.label :body %>
+		    <%= f.text_area :body, cols: 45, rows: 3, class: "span7 comment-box" %><br />
+		   <%= f.submit "Send Message", class: "btn" %>
+			</fieldset>
+		<% end %>
+	</div>
+</div>

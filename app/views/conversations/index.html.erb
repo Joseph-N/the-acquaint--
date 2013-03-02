@@ -1,0 +1,48 @@
+<% content_for(:head) do %>
+<style type="text/css">
+.bg {
+	background-color: rgb(245, 245, 245);
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.sbody').hover(function(){
+		$(this).toggleClass('bg');
+		$(this).css( 'cursor', 'pointer' );
+		// $(this).click(function(){
+		//     window.location=$(this).find("a.conversation").attr("href"); 
+		//     return false;
+		// });
+	});
+
+});
+</script>
+<% end %>
+<div id="wrapper">
+    <div id="profile">
+    	<div class="tabbable tabs-left"> <!-- Only required for left/right tabs -->
+  			<ul class="nav nav-tabs">
+    			<li class="active"><a href="#tab1" data-toggle="tab">Conversations</a></li>
+			    <li><a href="#tab2" data-toggle="tab">Trash</a></li>
+			    <li><a href="#tab3" data-toggle="tab">Sent</a></li>
+  			</ul>
+		  	<div class="tab-content">
+		    	<div class="tab-pane active" id="tab1">
+		    		<legend>Conversations</legend>
+		      		<%= render @conversations %>
+		      		<%= will_paginate @conversations %>
+		    	</div>
+		    	<div class="tab-pane" id="tab2">
+		    		<legend>Trash</legend>
+		      		<%= render @trash %>
+		    	</div>
+		    	<div class="tab-pane" id="tab3">
+		    		<legend>Sent</legend>
+		    		<%= render @sent %>
+		    	</div>
+		  	</div>
+		</div>
+	<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+</div>

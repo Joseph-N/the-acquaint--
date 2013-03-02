@@ -13,13 +13,15 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :username, :gender, :password, :password_confirmation, :photos_attributes
   
   has_secure_password
-  acts_as_messageable
   ajaxful_rater
   ajaxful_rateable stars: 5, allow_update: false
+  acts_as_messageable
   
   has_many :comments, dependent: :destroy
   has_many :photos, dependent: :destroy
   accepts_nested_attributes_for :photos, allow_destroy: true
+  has_many :received_messages, :class_name => 'Message', :foreign_key => 'sender_id'
+  has_many :sent_messages, :class_name => 'Message', :foreign_key => 'receiver_id'
   
   #Ensure email uniqueness by downcasing the email attribute
   before_save { self.email.downcase! }

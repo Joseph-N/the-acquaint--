@@ -1,0 +1,4 @@
+$('.comments').append('<%= escape_javascript(render(:partial => @comment )) %>').hide().fadeIn('slow');
+$('#comments_count').html('<%= pluralize(@user.comments.count, "comment") %> so far');
+$('#success').fadeIn(2000).fadeOut(1500);
+$('#new_comment')[0].reset();

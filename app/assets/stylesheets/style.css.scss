@@ -176,6 +176,12 @@ p {
     padding: 5px;
     background-color: #FFF;
     margin-bottom: 20px;
+    position: relative;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    color: rgba(0,0,0, .8);
+    text-shadow: 0 1px 0 #fff;
+    line-height: 1.5;
   }
   #profile {
     padding: 5px;
@@ -234,7 +240,7 @@ p {
 .comment-box {
   resize: vertical;
   padding: 10px;
-  background-color: #F4F4F4;
+  background-color: white;
 }
 
 .comments {
@@ -250,6 +256,7 @@ p {
   border-bottom-width: 1px;
   border-bottom-style: dashed;
   border-bottom-color: #999;
+  padding: 5px;
 }
 
 .simage {
@@ -282,6 +289,9 @@ p {
     padding: 5px;
   }
   #profile #profile-info #user {
+-moz-box-shadow: 0px 1px 3px #404040;
+-webkit-box-shadow: 0px 1px 3px #404040;
+box-shadow: 0px 1px 3px #404040;
     #image {
       height: 150px;
       width: 200px;
@@ -329,4 +339,50 @@ small {
   font-size: 11px;
   line-height: 13px;
   padding: 2px 0 2px 17px;
+}
+
+  #photo:before, #photo:after 
+  {
+    z-index: -1; 
+    position: absolute; 
+    content: "";
+    bottom: 15px;
+    left: 10px;
+    width: 50%; 
+    top: 80%;
+    max-width:300px;
+    background: rgba(0, 0, 0, 0.7); 
+    -webkit-box-shadow: 0 15px 10px rgba(0,0,0, 0.7);   
+    -moz-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
+    -webkit-transform: rotate(-3deg);    
+    -moz-transform: rotate(-3deg);   
+    -o-transform: rotate(-3deg);
+    -ms-transform: rotate(-3deg);
+    transform: rotate(-3deg);
+  }
+
+  #photo:after 
+  {
+    -webkit-transform: rotate(3deg);
+    -moz-transform: rotate(3deg);
+    -o-transform: rotate(3deg);
+    -ms-transform: rotate(3deg);
+    transform: rotate(3deg);
+    right: 10px;
+    left: auto;
+  }
+  #nav-messages{
+  background-color: #F3F3F3;
+  width: 260px;
+  margin-top: 20px;
+  padding: 5px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -webkit-box-shadow: 0px 1px 3px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    0px 1px 3px rgba(50, 50, 50, 0.75);
+  box-shadow:         0px 1px 3px rgba(50, 50, 50, 0.75);
+}
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover {
+  background-color: rgb(230, 230, 230);
 }

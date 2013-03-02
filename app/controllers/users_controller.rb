@@ -42,6 +42,8 @@ class UsersController < ApplicationController
     @profile_pic = @user.photos.first
     @average = @user.rate_average
     @rank = rank.index(@average)
+    session[:user_email] = @user.email
+    session[:user_name] = @user.name
   end
   
   def edit

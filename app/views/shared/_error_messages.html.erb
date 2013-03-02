@@ -1,7 +1,7 @@
 <% if object.errors.any? %>
 	<div class="alert alert-error">
 		<a class="close" data-dismiss="alert" href="#">&times;</a>
-  		<h6>Oops!! <%= pluralize(object.errors.count, "errors") %> occured</h6>
+  		<h6>Oops!! <%= pluralize(object.errors.count, "error") %> occured</h6>
   		<ul>
   			<% object.errors.full_messages.each do |msg| %>
   				<li><%= msg %></li>

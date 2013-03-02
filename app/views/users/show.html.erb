@@ -8,6 +8,10 @@
         $('#submit').click(function() {
                 location.reload();
         });
+        $('#new_comment').submit(function(){
+          $.post($(this).attr('action'), $(this).serialize(), null, "script");
+          return false;
+        });
         $('.stars-1').hover(
             function(){
                 $('#description').html("<p>Not attractive</p>")
@@ -66,8 +70,9 @@
           <% end %>
       </div>
       <div class="btn-block" style="margin-bottom: 10px;">
-          <div class="pull-left" style="width: 48%;"><button class="btn btn-block" type="button"><i class="icon-thumbs-up"></i> 15</button></div>
-          <div class="pull-right" style="width: 48%;"><button class="btn btn-block" type="button"><i class="icon-thumbs-down"></i> 5</button></div>
+        <% if !current_user?(@user) %>
+          <%= link_to(raw('<i class="icon-envelope"></i> Send Message'), new_conversation_path, class: "btn") %>
+        <% end %>
       </div>
     <div class="spacer clear"></div>
       <div class="rating">Quick Stats</div>
@@ -89,7 +94,7 @@
           <td width="71%" colspan="2" rowspan="2" valign="top"><table width="100%" cellpadding="5">
             <tr>
               <td width="36%"><strong>Total Votes</strong></td>
-              <td width="64%"><%= @user.rates_sum %></td>
+              <td width="64%" id="sum"><%= @user.rates_sum %></td>
             </tr>
             <tr>
               <td><strong>Profile Views</strong></td>
@@ -135,11 +140,15 @@
       <hr />
       <h4>Leave a comment</h4>
       <%= form_for([@user,@comment]) do |f| %>
-        <% if flash[:error] %>
-            <div class="alert alert-error"><a class="close" data-dismiss="alert" href="#">&times;</a><%= flash[:error] %></div>
-        <% end %>
+            <div class="alert alert-success" id="success" style="display: none;"><a class="close" data-dismiss="alert" href="#">&times;</a>Comment added!!</div>
         <%= f.text_area :content, cols: 45, rows: 3, class: "btn-block comment-box" %>
-        <%= f.submit "Comment", class: "btn" %><div class="pull-right"><%= image_tag "comment.png" %> <%= pluralize(@user.comments.count, "comment") %> so far</div>
+        <%= f.submit "Comment", class: "btn" %>
+        <div class="pull-right">
+          <%= image_tag "comment.png" %> 
+          <span id="comments_count">
+            <%= pluralize(@user.comments.count, "comment") %> so far
+          </span>
+        </div>
       <% end %>
       <% if @comments.any? %>
         <div class="comments">
