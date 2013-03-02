@@ -69,6 +69,7 @@ Acquianter::Application.configure do
   config.action_mailer.default_url_options = { :host => 'http://fathomless-falls-8042.herokuapp.com/' }
 
   # Send mail using gmail smtp
+  require "smtp_tls"
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings ={
       :address => "smtp.gmail.com",
