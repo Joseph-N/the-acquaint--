@@ -11,6 +11,7 @@ gem "cocaine", "= 0.3.2"
 gem "paperclip", "= 3.0.4"
 gem "ajaxful_rating", "~> 3.0.0.beta8"
 gem 'mailboxer'
+gem "tlsmail", "~> 0.0.1"
 
 
 # Bundle edge Rails instead:
