@@ -47,6 +47,7 @@ GEM
     carrierwave (0.8.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
+    certified (0.1.1)
     childprocess (0.3.7)
       ffi (~> 1.0, >= 1.0.6)
     cocaine (0.3.2)
@@ -215,6 +216,7 @@ DEPENDENCIES
   bootstrap-sass (= 2.1)
   bootstrap-will_paginate (= 0.0.6)
   capybara (= 1.1.2)
+  certified
   cocaine (= 0.3.2)
   coffee-rails (~> 3.2.1)
   factory_girl_rails (= 4.1.0)
