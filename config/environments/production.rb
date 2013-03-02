@@ -67,4 +67,17 @@ Acquianter::Application.configure do
 
   # Default email to send out notices
   config.action_mailer.default_url_options = { :host => 'http://fathomless-falls-8042.herokuapp.com/' }
+
+  # Send mail using gmail smtp
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings ={
+      :address => "smtp.gmail.com",
+      :port => "587",
+      :domain => "http://fathomless-falls-8042.herokuapp.com/",      
+      :user_name => "jojoartz98@gmail.com",
+      :password => "Joseph@Jojo002",
+      :authentication => :plain,
+      :enable_starttls_auto => true
+  }
+
 end
