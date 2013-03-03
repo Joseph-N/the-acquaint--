@@ -239,7 +239,7 @@ p {
 
 .comment-box {
   resize: vertical;
-  padding: 10px;
+  padding: 5px;
   background-color: white;
 }
 
@@ -256,7 +256,6 @@ p {
   border-bottom-width: 1px;
   border-bottom-style: dashed;
   border-bottom-color: #999;
-  padding: 5px;
 }
 
 .simage {
@@ -385,4 +384,7 @@ small {
 }
 .nav-tabs > .active > a, .nav-tabs > .active > a:hover {
   background-color: rgb(230, 230, 230);
+}
+.add-pad {
+  padding: 5px;
 }
