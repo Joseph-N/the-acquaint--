@@ -76,8 +76,8 @@ Acquianter::Application.configure do
   #     :address => "smtp.gmail.com",
   #     :port => "587",
   #     :domain => "http://fathomless-falls-8042.herokuapp.com",      
-  #     :user_name => "MY-EMAIL",
-  #     :password => "PASSWORD",
+  #     :user_name => "",
+  #     :password => "",
   #     :authentication => :plain,
   #     :enable_starttls_auto => true
   # }
