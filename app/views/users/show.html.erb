@@ -68,12 +68,6 @@
           if($.trim(y) == 0) {
             $('.comments').hide();
           }
-          $('#submit-comment').click(function(){
-            if(!$('#comment_content').val()){
-              var x = $('#status');
-              x.addClass('text-error').html('Please leave a comment!!').fadeIn();
-            }
-          });
           $('.chart').easyPieChart({
             animate: 2000,
             size: 180,
@@ -82,7 +76,19 @@
             barColor: '#993333'
           });
           $('textarea').countChars();
-    });
+          $('#submit-comment').click(function(){
+            if(!$('#comment_content').val()){
+              $('#myModal').modal({show: true});
+            }
+            else{
+              $('#loading').ajaxStart(function() {
+                $(this).hide().html('<%= image_tag "loading.gif" %> Submitting.....').fadeIn();
+              }).ajaxStop(function() {
+                $(this).html('<h4>Leave a comment <small class="pull-right" id="status"></small></h4>');
+              });
+            }
+          });
+        });
 
 </script>
 <% end %>
@@ -163,7 +169,9 @@
       <% end %>
     <div class="spacer"></div>        
       <hr />
-      <h4>Leave a comment <small class="pull-right" id="status"></small></h4>
+      <div id="loading">
+        <h4>Leave a comment <small class="pull-right" id="status"></small></h4>
+      </div>
       <%= form_for([@user,@comment]) do |f| %>
         <%= f.text_area :content, cols: 45, rows: 3, class: "btn-block comment-box" %>
         <%= f.submit "Comment", class: "btn", id: "submit-comment" %> <span id="count" class="muted"></span>
@@ -186,4 +194,18 @@
     </div>
     <div class="clear"></div>
 
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Ooops</h3>
+  </div>
+  <div class="modal-body">
+    <p>Please fill in a comment</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-inverse" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
 </div>
