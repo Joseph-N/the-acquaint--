@@ -6,7 +6,7 @@ class Photo < ActiveRecord::Base
   has_attached_file :image, :styles => { :small => "", :thumb => "", :avator => "", :rated => "", :medium => "", :large => "" },
                     :convert_options => { 
                       :small => "-gravity north -thumbnail 50x50^ -extent 50x50" ,
-                      :thumb => "-gravity north -thumbnail 150x150^ -extent 150x150",
+                      :thumb => "-gravity north -thumbnail 150x150^ -extent 140x140",
                       :avator => "-gravity north -thumbnail 200x150^ -extent 200x150",
                       :rated => "-gravity north -thumbnail 250x250^ -extent 250x250",
                       :medium => "-gravity north -thumbnail 250x300^ -extent 250x300",

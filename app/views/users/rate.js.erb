@@ -1,2 +1,3 @@
 $("#<%= @user.wrapper_dom_id(params) %>").html("<%= escape_javascript(ratings_for(@user, params.merge(:wrap => false))) %>");
-$("#<%= @user.wrapper_dom_id(params) %>").effect("highlight",{},3000);
+$("#<%= @user.wrapper_dom_id(params) %>").effect("highlight",{},3000); 
+

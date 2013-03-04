@@ -1,12 +1,27 @@
 <% provide(:title, @user.name) %>
 <% content_for(:head)  do %>
+<style type="text/css">
+<% if @user.rated_by?(current_user) || current_user?(@user) %>
+.ajaxful-rating-wrapper {
+  margin: 0 auto;
+}
+<% end %>
+</style>
 <script>
     $(document).ready(function() {
         $("a.fancybox").fancybox({type: 'image'});
         $("#rating").popover({trigger: 'hover', placement: 'top'});
         $('#photo-info').stickyMojo({footerID: '.footer', contentID: '#profile-info'});
         $('#submit').click(function() {
-                location.reload();
+          $('#rate-box').slideUp();  
+          $('.text-success').slideDown(1000); 
+          setTimeout(function(){
+            window.location = "<%= request.url %>";
+            $('.text-success').html("Refreshing results.........")
+          }, 3000);        
+        });
+        $('#rate-box').click(function(){
+          $('#submit').show();
         });
         $('#new_comment').submit(function(){
           $.post($(this).attr('action'), $(this).serialize(), null, "script");
@@ -50,6 +65,25 @@
             function(){
                 $('#description').html("");
             });
+        var y = $('.comments').text();
+        if($.trim(y) == 0) {
+          $('.comments').hide();
+        }
+        $('#submit-comment').click(function(){
+          if(!$('#comment_content').val()){
+           alert("Please leave a comment")
+          }
+        });
+            $('.chart').easyPieChart({
+        animate: 2000,
+    size: 180,
+    lineWidth: 5,
+    scaleColor: '#666',
+    barColor: '#993333'
+    });
+
+
+
         });
 
 </script>
@@ -75,66 +109,59 @@
         <% end %>
       </div>
     <div class="spacer clear"></div>
-      <div class="rating">Quick Stats</div>
-      <p><b>Member Since: </b><%= @user.created_at.strftime("%d %b %Y") %></p>
-      <p>Last Seen: 8 hours ago</p>
+
       </div>
-      <div id="profile-info">
+      <div id="profile-info" class="white-bg">
+        <div class="profile-user-header"><%= @user.name %><div class="rank">Rank #<%= @rank + 1 %></div></div>
+        <div id="user-profile">
       	<% if flash[:success] %>
       	   <div class="alert alert-success"><a class="close" data-dismiss="alert" href="#">&times;</a><%= flash[:success] %></div>
       	<% end %>
-      	  <div class="rating">
-            <span class="pull-left">Rating Stats</span>
-            <span class="pull-right">Total Voters: <%= @user.total_rates %></span>
-          <div class="clear"></div>
-        </div>
-        <table width="617">
-          <tr>
-          <td width="29%" height="130" align="center"><%= image_tag("big_star.png",width: 128, height: 128, alt: "star")%></td>
-          <td width="71%" colspan="2" rowspan="2" valign="top"><table width="100%" cellpadding="5">
-            <tr>
-              <td width="36%"><strong>Total Votes</strong></td>
-              <td width="64%" id="sum"><%= @user.rates_sum %></td>
-            </tr>
-            <tr>
-              <td><strong>Profile Views</strong></td>
-              <td>2536</td>
-            </tr>
-            <tr>
-              <td><strong>Current Position</strong></td>
-              <td>#<%= @rank + 1 %></td>
-            </tr>
-            <tr>
-              <td><strong>Global Average</strong></td>
-              <td><%= number_with_precision(@average, precision: 2) %> out of 5</td>
-            </tr>
-          </table>
-<br />
-          <% if current_user?(@user) %>
+
+        <p class="smart-title">My Stats <span class="pull-right"><%= @user.total_rates %> voters</span></p>
+        <div id="chart-outer">
+        <div class="chart" data-percent="<%= percentagize(@average) %>">         
+            <span class="big-rating"><%= percentagize(@average) %>%</span>
+            </div>
+        <% if current_user?(@user) %>
             <%= ratings_for @user, :static %>
-          <% else %>
-            <% if @user.rated_by?(current_user) %>
+          <% elsif @user.rated_by?(current_user)  %>
                 <%= ratings_for @user %>
-             <% else %>
+          <% end %>
+        </div>
+            <div class="span5" style="float:right">
+                <ul class="nav nav-list">                  
+                    <li><i class="icon-thumbs-up"></i> 45 likes</li>
+                    <li class="divider"></li>
+             <li><i class=" icon-info-sign"></i> <%= @user.rates_sum %> votes</li>
+                     <li class="divider"></li>
+                     <li><i class="icon-eye-open"></i> 17 profile views</li>              
+                    <li class="divider"></li>
+                    <li><i class=" icon-star"></i> Global Average: <%= number_with_precision(@average, precision: 2) %> out of 5</span></li>                    
+                    <li class="divider"></li>
+                    <li><i class="icon-user"></i> Member Since: <%= @user.created_at.strftime("%d %b %Y") %></li>
+                    <li class="divider"></li>  
+                    <li><i class="icon-eye-close"></i> Last Seen: 9 hours ago</li>
+                    <li class="divider"></li>
+          </ul>
+            </div>
+            <div class="clear"></div>
+            <p class="text-success">Thanks for voting!!!</p>
+            <div id="rate-box">
+          <% if !@user.rated_by?(current_user) && !current_user?(@user)  %>
                 <p class="smart-title">Rate <%= @user.name %> <small class="pull-right" id="description"></small></p>
-                <button class="pull-right btn" id="submit">submit ratings</button> 
+                <button class="pull-right btn" style="display: none" id="submit">submit ratings</button> 
                 <%= ratings_for @user, :show_user_rating => true %>               
-            <% end %>
-            
-          <% end %>   
-          <br />   
-          </tr>
-          <tr>
-            <td height="83" align="center" valign="middle"><span class="clear"><span class="big-rating"><%= percentagize(@average) %>%</span></span></td>
-          </tr>
-        </table>
+            <% end %> 
+          </div>
+
         <div class="spacer"></div>
-        <div class="rating">About Me</div>
+        <p class="smart-title">About Me</p>
     <p>Write a few words about yourself - your personality, temperament, attitude towards life and people. What makes you stand out from the crowd? What do other people love about you? And what drives them crazy?</p>
         <div class="spacer"></div>
-      <div class="rating">All Photos</div>
+      <p class="smart-title">My Photos</p>
       <% @user.photos.each do |photo| %>
-        <%= link_to(image_tag(photo.image.url(:thumb)), photo.image.url(:original), class: "fancybox", rel: "gallery1") %>              
+        <%= link_to(image_tag(photo.image.url(:thumb), width: 140, height: 140), photo.image.url(:original), class: "fancybox", rel: "gallery1") %>              
       <% end %>
     <div class="spacer"></div>        
       <hr />
@@ -142,7 +169,7 @@
       <%= form_for([@user,@comment]) do |f| %>
             <div class="alert alert-success" id="success" style="display: none;"><a class="close" data-dismiss="alert" href="#">&times;</a>Comment added!!</div>
         <%= f.text_area :content, cols: 45, rows: 3, class: "btn-block comment-box" %>
-        <%= f.submit "Comment", class: "btn" %>
+        <%= f.submit "Comment", class: "btn", id: "submit-comment" %>
         <div class="pull-right">
           <%= image_tag "comment.png" %> 
           <span id="comments_count">
@@ -150,16 +177,14 @@
           </span>
         </div>
       <% end %>
-      <% if @comments.any? %>
-        <div class="comments">
-            <%= render @comments %>
-      <% else %>
-        <p>No comments yet! be the first</p>
-      <% end %>
+      <div class="comments">
+        <%= render @comments if @comments.any? %>
       </div>
+    </div>
+  </div>
       
    
-      </div>
+    </div>
     <div class="clear"></div>
     </div>
     <div class="clear"></div>

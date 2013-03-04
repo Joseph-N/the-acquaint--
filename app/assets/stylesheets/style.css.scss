@@ -14,7 +14,7 @@ body {
   padding: 0;
   height: 100%;
   padding-top: 40px;
-  background: #fafafa url("bg.png") fixed repeat-x 0 0;
+  background: #fafafa url("bg.png") repeat -70% 0;
 }
 h1, h2, h3, h4, h5, h6 {
   color: #595959;
@@ -194,21 +194,55 @@ p {
   }
 }
 
-.rating {
-  background: rgba(0, 0, 0, 0.5);
-  color: #FFF;
-  font-size: 16px;
-  font-weight: bold;
-  padding-top: 5px;
-  padding-right: 10px;
-  padding-bottom: 5px;
-  padding-left: 10px;
-  margin-bottom: 15px;
+.profile-user-header {
+background-color: #333;
+background: #2a2a2a no-repeat;
+background: -webkit-gradient(linear, left top, left bottom, from(#333), to(#222)) no-repeat;
+background: -moz-linear-gradient(top, #333, #222) no-repeat;
+background: -o-linear-gradient(top, #333, #222) no-repeat;
+filter: progid:DXImageTransform.Microsoft.gradient(gradientType=linear, startColorstr='#FF333333', endColorstr='#FF222222');
+-ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#333', EndColorStr='#222');
+-moz-border-radius-topleft: 5px;
+-webkit-border-top-left-radius: 5px;
+border-top-left-radius: 5px;
+-moz-border-radius-topright: 5px;
+-webkit-border-top-right-radius: 5px;
+border-top-right-radius: 5px;
+font-family: "hnbc","Helvetica Neue",Helvetica,Arial,sans-serif;
+font-weight: normal;
+font-size: 20px;
+color: #fff;
+text-shadow: 0 0 2px rgba(0,0,0,0.2);
+height: 44px;
+line-height: 43px;
+padding: 0 20px;
+overflow: hidden;
+}
+
+.rank {
+-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset,0 1px 0 rgba(255,255,255,0.1);
+-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset,0 1px 0 rgba(255,255,255,0.1);
+box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset,0 1px 0 rgba(255,255,255,0.1);
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+-ms-border-radius: 4px;
+-o-border-radius: 4px;
+border-radius: 4px;
+background-color: rgba(0,0,0,0.3);
+display: inline-block;
+float: right;
+height: 30px;
+line-height: 25px;
+padding: 4px 10px 0;
+position: relative;
+top: 5px;
+color: #fff;
+font-size: 22px;
 }
 
 .big-rating {
-  font-size: 40px;
-  font-weight: bold;
+  font-size: 30px;
+  margin-left: 10px;
 }
 
 #container #wrapper #profile #photo-info {
@@ -223,18 +257,19 @@ p {
 .smart-title {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 18px;
-  line-height: 40px;
+  line-height: 25px;
   font-weight: bold;
   color: #333;
-  border-top-width: thin;
-  border-right-width: thin;
-  border-bottom-width: thin;
-  border-left-width: thin;
+  border-top-width: medium;
+  border-right-width: medium;
+  border-bottom-width: medium;
+  border-left-width: medium;
   border-bottom-style: solid;
   border-top-color: #999;
   border-right-color: #999;
   border-bottom-color: #999;
   border-left-color: #999;
+  text-transform: uppercase;
 }
 
 .comment-box {
@@ -288,9 +323,9 @@ p {
     padding: 5px;
   }
   #profile #profile-info #user {
--moz-box-shadow: 0px 1px 3px #404040;
--webkit-box-shadow: 0px 1px 3px #404040;
-box-shadow: 0px 1px 3px #404040;
+-moz-box-shadow: 0px 1px 2px #404040;
+-webkit-box-shadow: 0px 1px 2px #404040;
+box-shadow: 0px 1px 2px #404040;
     #image {
       height: 150px;
       width: 200px;
@@ -382,9 +417,42 @@ small {
   -moz-box-shadow:    0px 1px 3px rgba(50, 50, 50, 0.75);
   box-shadow:         0px 1px 3px rgba(50, 50, 50, 0.75);
 }
+.easyPieChart {
+    position: relative;
+    text-align: center;
+}
+
+.easyPieChart canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#user-profile #chart-outer {
+  float: left;
+  text-align: center;
+}
+#user-profile #chart-outer .chart{
+  height: 180px;
+  width: 180px;
+  margin-bottom: 10px;
+}
 .nav-tabs > .active > a, .nav-tabs > .active > a:hover {
   background-color: rgb(230, 230, 230);
 }
 .add-pad {
   padding: 5px;
+}
+.white-bg {
+  background-color:#FFF !important;
+  padding: 0px !important;
+}
+#user-profile{
+  padding: 20px;
+}
+.ajaxful-rating-wrapper {
+  width: 130px;
+}
+.text-success {
+  color: #468847;
+  display: none;
 }
