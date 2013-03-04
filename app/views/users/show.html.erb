@@ -76,18 +76,7 @@
             barColor: '#993333'
           });
           $('textarea').countChars();
-          $('#submit-comment').click(function(){
-            if(!$('#comment_content').val()){
-              $('#myModal').modal({show: true});
-            }
-            else{
-              $('#loading').ajaxStart(function() {
-                $(this).hide().html('<%= image_tag "loading.gif" %> Submitting.....').fadeIn();
-              }).ajaxStop(function() {
-                $(this).html('<h4>Leave a comment <small class="pull-right" id="status"></small></h4>');
-              });
-            }
-          });
+          $('#submit-comment').loadGif();
         });
 
 </script>
@@ -169,9 +158,9 @@
       <% end %>
     <div class="spacer"></div>        
       <hr />
-      <div id="loading">
-        <h4>Leave a comment <small class="pull-right" id="status"></small></h4>
-      </div>
+        <p class="p-loading"><%= image_tag "loading.gif" %> submitting....</p>
+        <h4 id="comment">Leave a comment</h4>
+
       <%= form_for([@user,@comment]) do |f| %>
         <%= f.text_area :content, cols: 45, rows: 3, class: "btn-block comment-box" %>
         <%= f.submit "Comment", class: "btn", id: "submit-comment" %> <span id="count" class="muted"></span>

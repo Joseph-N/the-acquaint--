@@ -38,3 +38,23 @@ jQuery.ajaxSetup({
 	    });
     };
 })(jQuery);
+
+// function to load gif with ajax when submitting comment
+(function($){
+    $.fn.loadGif = function(){
+		$(this).click(function(){
+			if(!$('#comment_content').val()){
+				$('#myModal').modal({show: true});
+			}
+			else{
+				$('#comment').ajaxStart(function() {
+					$(this).hide();
+					$('.p-loading').show();
+		  		}).ajaxStop(function() {
+		  			$('#comment').show();
+		  			$('.p-loading').hide();
+		  		});
+		  	}
+		});
+    };
+})(jQuery);
