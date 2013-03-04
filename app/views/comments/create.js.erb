@@ -1,4 +1,5 @@
 $('.comments').append('<%= escape_javascript(render(:partial => @comment )) %>').hide().fadeIn('slow');
 $('#comments_count').html('<%= pluralize(@user.comments.count, "comment") %> so far');
-$('#success').fadeIn(2000).fadeOut(1500);
+$('#status').removeClass('text-error').addClass('text-success').html('Comment added successful!!').fadeIn(1000).fadeOut(3000);
 $('#new_comment')[0].reset();
+$('#count').text("255");

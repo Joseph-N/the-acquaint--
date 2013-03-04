@@ -27,64 +27,62 @@
           $.post($(this).attr('action'), $(this).serialize(), null, "script");
           return false;
         });
-        $('.stars-1').hover(
-            function(){
-                $('#description').html("<p>Not attractive</p>")
-            },
-            function(){
-                $('#description').html("");
-            });
+        $('.stars-1').hover(function(){
+          $('#description').html("<p>Not attractive</p>")
+        },
+        function(){
+          $('#description').html("");
+        });
         $('.stars-2').hover(
-            function(){
-                $('#description').html("<p>Respectable</p>")
-            },
-            function(){
-                $('#description').html("");
-            });
+          function(){
+              $('#description').html("<p>Respectable</p>");
+          },
+          function(){
+              $('#description').html("");
+          });
 
         $('.stars-3').hover(
-            function(){
-                $('#description').html("<p>Decent/Attractive</p>")
-            },
-            function(){
-                $('#description').html("");
-            });
+          function(){
+              $('#description').html("<p>Decent/Attractive</p>")
+          },
+          function(){
+              $('#description').html("");
+          });
 
         $('.stars-4').hover(
-            function(){
-                $('#description').html("<p>Girlfriend Material</p>")
-            },
-            function(){
-                $('#description').html("");
-            });
+          function(){
+              $('#description').html("<p>Girlfriend Material</p>")
+          },
+          function(){
+              $('#description').html("");
+          });
             
         $('.stars-5').hover(
-            function(){
-                $('#description').html("<p>Supper Hottie!</p>")
-            },
-            function(){
-                $('#description').html("");
-            });
-        var y = $('.comments').text();
-        if($.trim(y) == 0) {
-          $('.comments').hide();
-        }
-        $('#submit-comment').click(function(){
-          if(!$('#comment_content').val()){
-           alert("Please leave a comment")
+          function(){
+              $('#description').html("<p>Supper Hottie!</p>")
+          },
+          function(){
+              $('#description').html("");
+          });
+          var y = $('.comments').text();
+          if($.trim(y) == 0) {
+            $('.comments').hide();
           }
-        });
-            $('.chart').easyPieChart({
-        animate: 2000,
-    size: 180,
-    lineWidth: 5,
-    scaleColor: '#666',
-    barColor: '#993333'
+          $('#submit-comment').click(function(){
+            if(!$('#comment_content').val()){
+              var x = $('#status');
+              x.addClass('text-error').html('Please leave a comment!!').fadeIn();
+            }
+          });
+          $('.chart').easyPieChart({
+            animate: 2000,
+            size: 180,
+            lineWidth: 5,
+            scaleColor: '#666',
+            barColor: '#993333'
+          });
+          $('textarea').countChars();
     });
-
-
-
-        });
 
 </script>
 <% end %>
@@ -105,7 +103,8 @@
       </div>
       <div class="btn-block" style="margin-bottom: 10px;">
         <% if !current_user?(@user) %>
-          <%= link_to(raw('<i class="icon-envelope"></i> Send Message'), new_conversation_path, class: "btn") %>
+          <%= link_to(raw('<i class="icon-envelope"></i> Message'), new_conversation_path, class: "btn", id:"send-message") %>
+          <%= link_to(raw('<i class="icon-heart"></i> Add to favorites'), '#', class: "btn", id: "add-favorite") %>
         <% end %>
       </div>
     <div class="spacer clear"></div>
@@ -118,7 +117,8 @@
       	   <div class="alert alert-success"><a class="close" data-dismiss="alert" href="#">&times;</a><%= flash[:success] %></div>
       	<% end %>
 
-        <p class="smart-title">My Stats <span class="pull-right"><%= @user.total_rates %> voters</span></p>
+
+        <p class="smart-title">My Stats</p>
         <div id="chart-outer">
         <div class="chart" data-percent="<%= percentagize(@average) %>">         
             <span class="big-rating"><%= percentagize(@average) %>%</span>
@@ -131,9 +131,9 @@
         </div>
             <div class="span5" style="float:right">
                 <ul class="nav nav-list">                  
-                    <li><i class="icon-thumbs-up"></i> 45 likes</li>
+                    <li><i class="icon-thumbs-up"></i> 45 likes <%= session[:logged_in] %></li>
                     <li class="divider"></li>
-             <li><i class=" icon-info-sign"></i> <%= @user.rates_sum %> votes</li>
+             <li><i class=" icon-info-sign"></i> <%= pluralize(@user.rates_sum, "vote") %> from <%= pluralize(@user.total_rates, "voter") %></li>
                      <li class="divider"></li>
                      <li><i class="icon-eye-open"></i> 17 profile views</li>              
                     <li class="divider"></li>
@@ -141,8 +141,6 @@
                     <li class="divider"></li>
                     <li><i class="icon-user"></i> Member Since: <%= @user.created_at.strftime("%d %b %Y") %></li>
                     <li class="divider"></li>  
-                    <li><i class="icon-eye-close"></i> Last Seen: 9 hours ago</li>
-                    <li class="divider"></li>
           </ul>
             </div>
             <div class="clear"></div>
@@ -157,7 +155,7 @@
 
         <div class="spacer"></div>
         <p class="smart-title">About Me</p>
-    <p>Write a few words about yourself - your personality, temperament, attitude towards life and people. What makes you stand out from the crowd? What do other people love about you? And what drives them crazy?</p>
+    <p>Write a few words about yourself - your personality, temperament, attitude towards life and people. What makes you stand out from the crowd? What do other people love about you? And what drives them crazy?</p>    
         <div class="spacer"></div>
       <p class="smart-title">My Photos</p>
       <% @user.photos.each do |photo| %>
@@ -165,11 +163,10 @@
       <% end %>
     <div class="spacer"></div>        
       <hr />
-      <h4>Leave a comment</h4>
+      <h4>Leave a comment <small class="pull-right" id="status"></small></h4>
       <%= form_for([@user,@comment]) do |f| %>
-            <div class="alert alert-success" id="success" style="display: none;"><a class="close" data-dismiss="alert" href="#">&times;</a>Comment added!!</div>
         <%= f.text_area :content, cols: 45, rows: 3, class: "btn-block comment-box" %>
-        <%= f.submit "Comment", class: "btn", id: "submit-comment" %>
+        <%= f.submit "Comment", class: "btn", id: "submit-comment" %> <span id="count" class="muted"></span>
         <div class="pull-right">
           <%= image_tag "comment.png" %> 
           <span id="comments_count">
