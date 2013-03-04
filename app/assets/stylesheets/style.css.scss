@@ -449,11 +449,28 @@ small {
 #user-profile{
   padding: 20px;
 }
-.ajaxful-rating-wrapper {
-  width: 130px;
+#stars {
+  margin: 0 auto;
+  padding-top: 3px;
+  padding-bottom: 2px;
+  width: 135px;
+  padding-left: 9px;
+  background-color: #f4f4f4;
+  box-shadow: 1px 1px 10px 5px rgba(221,221,221,0.27);
+  -webkit-box-shadow: 1px 1px 10px 5px rgba(221,221,221,0.27);
+  -moz-box-shadow: 1px 1px 10px 5px rgba(221,221,221,0.27);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: solid thin #F5FBEF;
 }
 .p-loading {
    display: none;
+}
+.text-success {
+  color: #468847;
+  display: none;
+  text-align: center;
+ 
 }
 #count {
   margin-left: 5px;

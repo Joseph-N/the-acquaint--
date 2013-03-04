@@ -44,7 +44,7 @@ jQuery.ajaxSetup({
     $.fn.loadGif = function(){
 		$(this).click(function(){
 			if(!$('#comment_content').val()){
-				$('#myModal').modal({show: true});
+				alert("Please leave a comment")
 			}
 			else{
 				$('#comment').ajaxStart(function() {

@@ -17,7 +17,7 @@
           $('.text-success').slideDown(1000); 
           setTimeout(function(){
             window.location = "<%= request.url %>";
-            $('.text-success').html("Refreshing results.........")
+            $('.text-success').text("Refreshing results.........");
           }, 3000);        
         });
         $('#rate-box').click(function(){
@@ -84,11 +84,13 @@
 	<div id="wrapper">
     <div id="profile">
       <div id="photo-info">
-          <% if current_user?(@user) %>
-            <h4><%= @user.name %></h4>
-          <% else %>
-             <h4><%= @user.name %>'s profile</h4>
+        <div id="stars">
+           <% if current_user?(@user) %>
+            <%= ratings_for @user, :static %>
+          <% elsif @user.rated_by?(current_user)  %>
+                <%= ratings_for @user %>
           <% end %>
+        </div>
       <div id="photo">
           <% if @profile_pic == nil %>
             <%= gravator_for @user %>
@@ -118,11 +120,7 @@
         <div class="chart" data-percent="<%= percentagize(@average) %>">         
             <span class="big-rating"><%= percentagize(@average) %>%</span>
             </div>
-        <% if current_user?(@user) %>
-            <%= ratings_for @user, :static %>
-          <% elsif @user.rated_by?(current_user)  %>
-                <%= ratings_for @user %>
-          <% end %>
+       
         </div>
             <div class="span5" style="float:right">
                 <ul class="nav nav-list">                  
@@ -183,18 +181,4 @@
     </div>
     <div class="clear"></div>
 
-</div>
-
-<!-- Modal -->
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Ooops</h3>
-  </div>
-  <div class="modal-body">
-    <p>Please fill in a comment</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-inverse" data-dismiss="modal" aria-hidden="true">Close</button>
-  </div>
 </div>
