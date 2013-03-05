@@ -1,0 +1,4 @@
+$('#vote-down').addClass('disabled');
+$('#vote-up').removeClass('disabled');
+$('#dislikes').text('<%= escape_javascript(pluralize(@voter.votes_against, "dislike")) %>');
+$('#likes').text('<%= escape_javascript(pluralize(@voter.votes_for,"like")) %>');

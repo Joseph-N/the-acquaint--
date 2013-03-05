@@ -58,3 +58,17 @@ jQuery.ajaxSetup({
 		});
     };
 })(jQuery);
+
+// rate through ajax
+(function($){
+	$.fn.raty = function(url){
+		$(this).click(function() {
+	      	$('#rate-box').slideUp();  
+	      	$('.text-success').slideDown(1000); 
+	     	setTimeout(function(){
+	        	window.location = url;
+	        	$('.text-success').text("Refreshing results.........");
+	      	}, 3000);
+    	});
+	};
+})(jQuery);

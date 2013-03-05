@@ -16,6 +16,9 @@ class User < ActiveRecord::Base
   ajaxful_rater
   ajaxful_rateable stars: 5, allow_update: false
   acts_as_messageable
+  is_impressionable
+  acts_as_voteable
+  acts_as_voter
   
   has_many :comments, dependent: :destroy
   has_many :photos, dependent: :destroy

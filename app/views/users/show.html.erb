@@ -12,19 +12,20 @@
         $("a.fancybox").fancybox({type: 'image'});
         $("#rating").popover({trigger: 'hover', placement: 'top'});
         $('#photo-info').stickyMojo({footerID: '.footer', contentID: '#profile-info'});
-        $('#submit').click(function() {
-          $('#rate-box').slideUp();  
-          $('.text-success').slideDown(1000); 
-          setTimeout(function(){
-            window.location = "<%= request.url %>";
-            $('.text-success').text("Refreshing results.........");
-          }, 3000);        
-        });
+        $('#submit').raty("<%= request.url %>");
         $('#rate-box').click(function(){
           $('#submit').show();
         });
         $('#new_comment').submit(function(){
           $.post($(this).attr('action'), $(this).serialize(), null, "script");
+          return false;
+        });
+        $('#vote-up').click(function(){
+         $.post($(this).attr('href'), null, null, "script");
+          return false;
+        });
+        $('#vote-down').click(function(){
+         $.post($(this).attr('href'), null, null, "script");
           return false;
         });
         $('.stars-1').hover(function(){
@@ -75,6 +76,14 @@
             scaleColor: '#666',
             barColor: '#993333'
           });
+          var voted_for = '<%= @user.voted_for?(current_user) %>';
+          var voted_against = '<%= @user.voted_against?(current_user) %>';
+          if(voted_for == "true"){
+            $('#vote-up').addClass('disabled');
+          }
+          if(voted_against == "true"){
+            $('#vote-down').addClass('disabled');
+          }          
           $('textarea').countChars();
           $('#submit-comment').loadGif();
         });
@@ -100,13 +109,18 @@
       </div>
       <div class="btn-block" style="margin-bottom: 10px;">
         <% if !current_user?(@user) %>
-          <%= link_to(raw('<i class="icon-envelope"></i> Message'), new_conversation_path, class: "btn", id:"send-message") %>
-          <%= link_to(raw('<i class="icon-heart"></i> Add to favorites'), '#', class: "btn", id: "add-favorite") %>
+        <div class="well well-large">
+          <%= link_to(raw('<i class="icon-thumbs-up icon-white"></i> I like'), vote_up_path, class: "btn btn-inverse", id: "vote-up", method: :post) %>
+          <%= link_to(raw('<i class="icon-thumbs-down icon-white"></i> I dislike'), vote_down_path, class: "btn btn-inverse", id: "vote-down", method: :post) %>
+        </div>
         <% end %>
+        
+
+        
       </div>
     <div class="spacer clear"></div>
 
-      </div>
+      </div>      
       <div id="profile-info" class="white-bg">
         <div class="profile-user-header"><%= @user.name %><div class="rank">Rank #<%= @rank + 1 %></div></div>
         <div id="user-profile">
@@ -115,7 +129,7 @@
       	<% end %>
 
 
-        <p class="smart-title">My Stats</p>
+        <p class="smart-title">My Stats <%= @user.voted_for?(current_user) %></p>
         <div id="chart-outer">
         <div class="chart" data-percent="<%= percentagize(@average) %>">         
             <span class="big-rating"><%= percentagize(@average) %>%</span>
@@ -124,11 +138,12 @@
         </div>
             <div class="span5" style="float:right">
                 <ul class="nav nav-list">                  
-                    <li><i class="icon-thumbs-up"></i> 45 likes <%= session[:logged_in] %></li>
+                    <li><i class="icon-thumbs-up"></i> <span id="likes"><%= pluralize(@user.votes_for, "like") %> </span> 
+                      <i class="icon-thumbs-down"></i> <span id="dislikes"> <%= pluralize(@user.votes_against, "dislike") %></span></li>
                     <li class="divider"></li>
              <li><i class=" icon-info-sign"></i> <%= pluralize(@user.rates_sum, "vote") %> from <%= pluralize(@user.total_rates, "voter") %></li>
                      <li class="divider"></li>
-                     <li><i class="icon-eye-open"></i> 17 profile views</li>              
+                     <li><i class="icon-eye-open"></i> <%= @user.impressionist_count %> profile views</li>              
                     <li class="divider"></li>
                     <li><i class=" icon-star"></i> Global Average: <%= number_with_precision(@average, precision: 2) %> out of 5</span></li>                    
                     <li class="divider"></li>
@@ -138,6 +153,8 @@
             </div>
             <div class="clear"></div>
             <p class="text-success">Thanks for voting!!!</p>
+         
+      
             <div id="rate-box">
           <% if !@user.rated_by?(current_user) && !current_user?(@user)  %>
                 <p class="smart-title">Rate <%= @user.name %> <small class="pull-right" id="description"></small></p>
@@ -148,13 +165,19 @@
 
         <div class="spacer"></div>
         <p class="smart-title">About Me</p>
-    <p>Write a few words about yourself - your personality, temperament, attitude towards life and people. What makes you stand out from the crowd? What do other people love about you? And what drives them crazy?</p>    
+    <p>Write a few words about yourself - your personality, temperament, attitude towards life and people. What makes you stand out from the crowd? What do other people love about you? And what drives them crazy?</p>   
+    <% if !current_user?(@user) %>
+          <div class="well well-small">
+          <%= link_to(raw('<i class="icon-envelope"></i> send a message'), new_conversation_path, class: "btn", id:"send-message") %>
+          <%= link_to(raw('<i class="icon-heart"></i> Add to favorites'), '#', class: "btn", id: "add-favorite") %>
+        </div>
+    <% end %> 
         <div class="spacer"></div>
       <p class="smart-title">My Photos</p>
       <% @user.photos.each do |photo| %>
         <%= link_to(image_tag(photo.image.url(:thumb), width: 140, height: 140), photo.image.url(:original), class: "fancybox", rel: "gallery1") %>              
       <% end %>
-    <div class="spacer"></div>        
+    <div class="spacer"></div>       
       <hr />
         <p class="p-loading"><%= image_tag "loading.gif" %> submitting....</p>
         <h4 id="comment">Leave a comment</h4>

@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:edit, :update, :show, :index]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :initialize_users, only: [:new, :create]
+  impressionist :actions => [:show], :unique => [:impressionable_id, :session_hash]
   
   def index
     
@@ -68,6 +69,42 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def vote_up
+    @voter = User.find(params[:id])
+    voteable = current_user
+    begin
+      if @voter.voted_on?(voteable)
+        @voter.vote_exclusively_for(voteable)
+      else
+        @voter.vote_for(voteable)
+      end
+      respond_to do |format|
+        format.html { redirect_to @voter }
+        format.js
+      end
+    rescue ActiveRecord::RecordInvalid
+        redirect_to @voter
+    end     
+  end
+
+  def vote_down
+    @voter = User.find(params[:id])
+    voteable = current_user
+    begin
+      if @voter.voted_on?(voteable)
+        @voter.vote_exclusively_against(voteable)
+      else
+        @voter.vote_against(voteable)
+      end
+      respond_to do |format|
+        format.html { redirect_to @voter }
+        format.js
+      end
+    rescue ActiveRecord::RecordInvalid
+        redirect_to @voter
+    end        
   end
   
   
