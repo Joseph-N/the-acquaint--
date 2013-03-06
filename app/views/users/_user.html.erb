@@ -1,0 +1,13 @@
+<div id="user">
+    <div id="image"><%= thumbnail_for(user, "avator") %></div>
+    <div id="profile-summary">
+        <p>
+            <strong><%= user.name %></strong> <small>(<%= user.username %>)</small>
+            <span class="pull-right small">Score: <b><%= percentagize(user.rate_average) %>%</b>&nbsp;&nbsp; Ranked: <b><%= (@rank.index(user.rate_average) + 1).ordinalize %></b></span>
+        </p>
+        <p><%= truncate(user.about, :length => 170) %></p>
+        <p><%= link_to(raw("<i class='icon-share-alt'></i> view profile"), user, class: "btn")  %></p>
+    </div>
+    <div class="clear"></div>
+</div>
+<%= will_paginate %>

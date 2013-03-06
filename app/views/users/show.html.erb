@@ -8,85 +8,30 @@
 <% end %>
 </style>
 <script>
-    $(document).ready(function() {
-        $("a.fancybox").fancybox({type: 'image'});
-        $("#rating").popover({trigger: 'hover', placement: 'top'});
-        $('#photo-info').stickyMojo({footerID: '.footer', contentID: '#profile-info'});
-        $('#submit').raty("<%= request.url %>");
-        $('#rate-box').click(function(){
-          $('#submit').show();
-        });
-        $('#new_comment').submit(function(){
-          $.post($(this).attr('action'), $(this).serialize(), null, "script");
-          return false;
-        });
-        $('#vote-up').click(function(){
-         $.post($(this).attr('href'), null, null, "script");
-          return false;
-        });
-        $('#vote-down').click(function(){
-         $.post($(this).attr('href'), null, null, "script");
-          return false;
-        });
-        $('.stars-1').hover(function(){
-          $('#description').html("<p>Not attractive</p>")
-        },
-        function(){
-          $('#description').html("");
-        });
-        $('.stars-2').hover(
-          function(){
-              $('#description').html("<p>Respectable</p>");
-          },
-          function(){
-              $('#description').html("");
-          });
-
-        $('.stars-3').hover(
-          function(){
-              $('#description').html("<p>Decent/Attractive</p>")
-          },
-          function(){
-              $('#description').html("");
-          });
-
-        $('.stars-4').hover(
-          function(){
-              $('#description').html("<p>Girlfriend Material</p>")
-          },
-          function(){
-              $('#description').html("");
-          });
-            
-        $('.stars-5').hover(
-          function(){
-              $('#description').html("<p>Supper Hottie!</p>")
-          },
-          function(){
-              $('#description').html("");
-          });
-          var y = $('.comments').text();
-          if($.trim(y) == 0) {
-            $('.comments').hide();
-          }
-          $('.chart').easyPieChart({
-            animate: 2000,
-            size: 180,
-            lineWidth: 5,
-            scaleColor: '#666',
-            barColor: '#993333'
-          });
-          var voted_for = '<%= @user.voted_for?(current_user) %>';
-          var voted_against = '<%= @user.voted_against?(current_user) %>';
-          if(voted_for == "true"){
-            $('#vote-up').addClass('disabled');
-          }
-          if(voted_against == "true"){
-            $('#vote-down').addClass('disabled');
-          }          
-          $('textarea').countChars();
-          $('#submit-comment').loadGif();
-        });
+$(document).ready(function() {
+    $("a.fancybox").fancybox({type: 'image'});
+    $("#rating").popover({trigger: 'hover', placement: 'top'});
+    $('#photo-info').stickyMojo({footerID: '.footer', contentID: '#profile-info'});
+    $('#submit').raty(window.location.pathname + '/average.json');
+    $('#new_comment').comment();
+    $('#vote-up').vote();
+    $('#vote-down').vote();
+    $('.comments').hideDiv();
+    $('#vote-up').disable('<%= @user.voted_for?(current_user) %>');
+    $('#vote-down').disable('<%= @user.voted_against?(current_user) %>');
+    $('textarea').countChars();
+    $('#submit-comment').loadGif();
+    $('.chart').easyPieChart({
+      animate: 2000,
+      size: 180,
+      lineWidth: 5,
+      scaleColor: '#666',
+      barColor: '#993333'
+    });
+    $('#rate-box').click(function(){
+      $('#submit').show();
+    });
+});
 
 </script>
 <% end %>
@@ -129,7 +74,7 @@
       	<% end %>
 
 
-        <p class="smart-title">My Stats <%= @user.voted_for?(current_user) %></p>
+        <p class="smart-title">My Stats</p>
         <div id="chart-outer">
         <div class="chart" data-percent="<%= percentagize(@average) %>">         
             <span class="big-rating"><%= percentagize(@average) %>%</span>
@@ -143,7 +88,7 @@
                     <li class="divider"></li>
              <li><i class=" icon-info-sign"></i> <%= pluralize(@user.rates_sum, "vote") %> from <%= pluralize(@user.total_rates, "voter") %></li>
                      <li class="divider"></li>
-                     <li><i class="icon-eye-open"></i> <%= @user.impressionist_count %> profile views</li>              
+                     <li><i class="icon-eye-open"></i> <%= @user.impressionist_count(:filter => :ip_address) %> profile views</li>              
                     <li class="divider"></li>
                     <li><i class=" icon-star"></i> Global Average: <%= number_with_precision(@average, precision: 2) %> out of 5</span></li>                    
                     <li class="divider"></li>
@@ -152,9 +97,6 @@
           </ul>
             </div>
             <div class="clear"></div>
-            <p class="text-success">Thanks for voting!!!</p>
-         
-      
             <div id="rate-box">
           <% if !@user.rated_by?(current_user) && !current_user?(@user)  %>
                 <p class="smart-title">Rate <%= @user.name %> <small class="pull-right" id="description"></small></p>
@@ -162,10 +104,16 @@
                 <%= ratings_for @user, :show_user_rating => true %>               
             <% end %> 
           </div>
+            <p class="text-success">Thanks for voting!!!</p>
+        
 
         <div class="spacer"></div>
         <p class="smart-title">About Me</p>
-    <p>Write a few words about yourself - your personality, temperament, attitude towards life and people. What makes you stand out from the crowd? What do other people love about you? And what drives them crazy?</p>   
+        <% if @user.about == nil %>
+    <p>not yet updated this section</p>  
+    <% else %> 
+    <p><%= @user.about %></p>
+    <% end  %>
     <% if !current_user?(@user) %>
           <div class="well well-small">
           <%= link_to(raw('<i class="icon-envelope"></i> send a message'), new_conversation_path, class: "btn", id:"send-message") %>

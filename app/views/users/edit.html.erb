@@ -1,4 +1,16 @@
 <% provide(:title, "Edit Profile") %>
+<% content_for(:head)  do %>
+  <script type="text/javascript">
+  $(document).ready(function() {
+  	$('#user_about').popover({
+  		placement: 'right',
+  		trigger: 'focus',
+  		title: 'About You',
+  		content: 'E.g - whats your personality, temperament, attitude towards life and people. What makes you stand out from the crowd? What do other people love about you? And what drives them crazy? etc ;-)',
+  	});
+  });
+  </script>
+<% end %>
 <h3>Update your profile</h3>
 
 <%= form_for @user, :html => { :multipart => true } do |f| %>
@@ -15,6 +27,9 @@
 	
 	<%= f.label :gender %>
     <%= f.select(:gender, [['Your Gender',''], ['Male', 'male'], ['Female', 'female']]) %>	
+
+    <%= f.label :about %>
+    <%= f.text_area :about, cols: 45, rows: 5, class: "span5 comment-box", placeholder: "Write something about yourself" %>
 	
 	<%= f.label :password %>
 	<%= f.password_field :password %>

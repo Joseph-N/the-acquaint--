@@ -10,7 +10,7 @@
 #
 
 class User < ActiveRecord::Base  
-  attr_accessible :email, :name, :username, :gender, :password, :password_confirmation, :photos_attributes
+  attr_accessible :email, :name, :username, :gender, :about, :password, :password_confirmation, :photos_attributes
   
   has_secure_password
   ajaxful_rater

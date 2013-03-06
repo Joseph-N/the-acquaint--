@@ -67,6 +67,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.rate(params[:stars], current_user, params[:dimension])
     respond_to do |format|
+      format.html { redirect_to @user }
       format.js
     end
   end
@@ -106,6 +107,13 @@ class UsersController < ApplicationController
         redirect_to @voter
     end        
   end
+
+  def average
+    @percentage = { "percentage" => percentagize(User.find(params[:id]).rate_average) }
+    respond_to do |format |
+      format.json { render :json => @percentage }
+    end
+  end
   
   
   private
@@ -129,5 +137,9 @@ class UsersController < ApplicationController
       end
       scores.sort!.reverse!
     end
+
+  def percentagize(average)
+    view_context.number_with_precision(((average / 5) * 100), precision: 1)
+  end
     
 end
