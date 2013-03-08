@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   
   has_secure_password
   ajaxful_rater
-  ajaxful_rateable stars: 5, allow_update: false
+  ajaxful_rateable stars: 10, allow_update: false
   acts_as_messageable
   is_impressionable
   acts_as_voteable

@@ -20,6 +20,16 @@ class CommentsController < ApplicationController
     @comment.destroy
     redirect_to @user
   end
+
+  def more_comments
+    @user = User.find(params[:id]);
+    @last_msg_id = params[:lastmsg]
+    @comments = @user.comments.where("id < ?", @last_msg_id).order("id DESC").limit(5).sort
+    @new_last_msg_id = (@comments.any?) ? (@comments.first.id) : 0
+    respond_to do |format|
+      format.js
+    end
+  end
   
   private
   def correct_user

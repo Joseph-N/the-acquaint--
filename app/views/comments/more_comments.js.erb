@@ -1,0 +1,11 @@
+$('.comments').children().first().before('<%= escape_javascript(render @comments) %>');
+$('.morebox').attr('id','<%= @new_last_msg_id %>');
+$('.more').attr('id','<%= @new_last_msg_id %>');
+var x = $('#count-of');
+var count = parseInt(x.attr('count'));
+count += 5;
+$(x).attr("count", count)
+$(x).text(count + " of <%= @user.comments.count %>");
+if(count >= parseInt(" <%= @user.comments.count %> ")){
+	$('.morebox').hide();
+}

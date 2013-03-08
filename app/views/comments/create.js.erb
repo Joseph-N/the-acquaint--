@@ -1,4 +1,10 @@
 $('.comments').append('<%= escape_javascript(render(:partial => @comment )) %>').hide().fadeIn('slow');
-$('#comments_count').html('<%= pluralize(@user.comments.count, "comment") %> so far');
+$('#comments_count').html('<%= image_tag "comment.png" %> <%= pluralize(@user.comments.count, "comment") %> so far');
 $('#new_comment')[0].reset();
 $('#count').text("255");
+
+var x = $('#count-of');
+var count = parseInt(x.attr('count'));
+count ++;
+$(x).attr("count", count)
+$(x).text(count + " of <%= @user.comments.count %>")

@@ -73,7 +73,7 @@ module UsersHelper
   
   #returns average as a percentage
   def percentagize(average)
-    number_with_precision(((average / 5) * 100), precision: 1)
+    number_with_precision(((average / 10) * 100), precision: 1)
   end
   
 end

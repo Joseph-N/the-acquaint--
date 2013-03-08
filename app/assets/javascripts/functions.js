@@ -27,18 +27,18 @@ jQuery.ajaxSetup({
 
 // function to load gif with ajax when submitting comment
 (function($){
-    $.fn.loadGif = function(){
+    $.fn.loadGif = function(image){
 		$(this).click(function(){
 			if(!$('#comment_content').val()){
 				alert("Please leave a comment")
 			}
 			else{
-				$('#comment').ajaxStart(function() {
-					$(this).hide();
-					$('.p-loading').show();
+				$('#count').ajaxStart(function() {
+					$('#submit-comment').addClass('disabled');
+					$(this).html(image);
 		  		}).ajaxStop(function() {
-		  			$('#comment').show();
-		  			$('.p-loading').hide();
+		  			$('#submit-comment').removeClass('disabled');
+		  			$(this).text('255');
 		  		});
 		  	}
 		});

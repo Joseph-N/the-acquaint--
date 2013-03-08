@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @comments = @user.comments
+    @comments = @user.comments.order("id ASC").last(5)
     @comment = current_user.comments.build 
     @profile_pic = @user.photos.first
     @average = @user.rate_average
@@ -139,7 +139,7 @@ class UsersController < ApplicationController
     end
 
   def percentagize(average)
-    view_context.number_with_precision(((average / 5) * 100), precision: 1)
+    view_context.number_with_precision(((average / 10) * 100), precision: 1)
   end
     
 end

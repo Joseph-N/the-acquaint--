@@ -20,7 +20,7 @@ $(document).ready(function() {
     $('#vote-up').disable('<%= @user.voted_for?(current_user) %>');
     $('#vote-down').disable('<%= @user.voted_against?(current_user) %>');
     $('textarea').countChars();
-    $('#submit-comment').loadGif();
+    $('#submit-comment').loadGif('<%= image_tag "loading.gif" %>');
     $('.chart').easyPieChart({
       animate: 2000,
       size: 180,
@@ -31,6 +31,20 @@ $(document).ready(function() {
     $('#rate-box').click(function(){
       $('#submit').show();
     });
+    $('.more').click(function(e){
+      var id = $(this).attr('id');
+      if(id){
+        $.post($(this).attr('href'), "lastmsg=" + id, null, "script");
+        return false;   
+      }
+     $('.more').ajaxStart(function(){
+        $('.gif').show();
+
+      }).ajaxStop(function(){
+        $('.gif').hide();
+      }); 
+     
+    });
 });
 
 </script>
@@ -38,13 +52,6 @@ $(document).ready(function() {
 	<div id="wrapper">
     <div id="profile">
       <div id="photo-info">
-        <div id="stars">
-           <% if current_user?(@user) %>
-            <%= ratings_for @user, :static %>
-          <% elsif @user.rated_by?(current_user)  %>
-                <%= ratings_for @user %>
-          <% end %>
-        </div>
       <div id="photo">
           <% if @profile_pic == nil %>
             <%= gravator_for @user %>
@@ -52,6 +59,14 @@ $(document).ready(function() {
             <%= image_tag @profile_pic.image.url(:medium) %> 
           <% end %>
       </div>
+
+       <div id="stars">
+           <% if current_user?(@user) %>
+            <%= ratings_for @user, :static %>
+          <% elsif @user.rated_by?(current_user)  %>
+                <%= ratings_for @user %>
+          <% end %>
+        </div>
       <div class="btn-block" style="margin-bottom: 10px;">
         <% if !current_user?(@user) %>
         <div class="well well-large">
@@ -90,7 +105,7 @@ $(document).ready(function() {
                      <li class="divider"></li>
                      <li><i class="icon-eye-open"></i> <%= @user.impressionist_count(:filter => :ip_address) %> profile views</li>              
                     <li class="divider"></li>
-                    <li><i class=" icon-star"></i> Global Average: <%= number_with_precision(@average, precision: 2) %> out of 5</span></li>                    
+                    <li><i class=" icon-star"></i> Global Average: <%= number_with_precision(@average, precision: 2) %> out of 10</span></li>                    
                     <li class="divider"></li>
                     <li><i class="icon-user"></i> Member Since: <%= @user.created_at.strftime("%d %b %Y") %></li>
                     <li class="divider"></li>  
@@ -127,24 +142,28 @@ $(document).ready(function() {
       <% end %>
     <div class="spacer"></div>       
       <hr />
-        <p class="p-loading"><%= image_tag "loading.gif" %> submitting....</p>
-        <h4 id="comment">Leave a comment</h4>
 
-      <%= form_for([@user,@comment]) do |f| %>
-        <%= f.text_area :content, cols: 45, rows: 3, class: "btn-block comment-box" %>
-        <%= f.submit "Comment", class: "btn", id: "submit-comment" %> <span id="count" class="muted"></span>
-        <div class="pull-right">
-          <%= image_tag "comment.png" %> 
-          <span id="comments_count">
-            <%= pluralize(@user.comments.count, "comment") %> so far
-          </span>
+      <div id="comments_count">
+         <%= image_tag "comment.png" %> 
+        <%= pluralize(@user.comments.count, "comment") %> so far
+      </div>
+      <% if @user.comments.count > 5 %>
+        <div class="morebox" id="more<%= @comments.first.id %>" style>
+          <i class="icon-time grayscale"></i> <a href="<%= more_path %>" class="more" id="<%= @comments.first.id %>">view previous comments</a> 
+          <span class="gif"><%= image_tag "294.gif" %></span>
+          <span class="pull-right" id="count-of" count="5">5 of <%= @user.comments.count %></span>
         </div>
       <% end %>
+
       <div class="comments">
-        <%= render @comments if @comments.any? %>
+        <%= render @comments if @comments.any? %> 
       </div>
+      <%= form_for([@user,@comment]) do |f| %>
+          <%= f.text_area :content, cols: 45, rows: 3, class: "btn-block comment-box", placeholder: "Leave a comment" %>
+          <%= f.submit "Comment", class: "btn", id: "submit-comment" %>
+          <span id="count" class="muted"></span>
+      <% end %>     
     </div>
-  </div>
       
    
     </div>

@@ -1,4 +1,4 @@
-<div class="sbody">
+<div class="sbody" id="<%= comment.id %>">
     <div class="simage">
         <%= thumbnail_for(comment.commenter, "small") %>
     </div>
@@ -6,7 +6,7 @@
         <strong><%= link_to comment.commenter.username, comment.commenter %></strong><br />
         <%= auto_link(comment.content, html: { target: '_blank' }) %>
         <div class="sttime">
-            <%= time_ago_in_words(comment.created_at) %> ago            
+            <%= time_ago_in_words(comment.created_at) %> ago        
         </div> 
     </div>
 </div>
