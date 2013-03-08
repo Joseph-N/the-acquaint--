@@ -1,0 +1,26 @@
+<div class="span5" style="float:right">
+	<ul class="nav nav-list">
+		<li>
+			<i class="icon-thumbs-up"></i><span id="likes"><%= pluralize(@user.votes_for, "like") %> </span>
+			<i class="icon-thumbs-down"></i><span id="dislikes"> <%= pluralize(@user.votes_against, "dislike") %></span>
+		</li>
+		<li class="divider"></li>
+		<li>
+			<i class=" icon-info-sign"></i> <%= pluralize(@user.rates_sum, "vote") %> from <%= pluralize(@user.total_rates, "voter") %>
+		</li>
+		<li class="divider"></li>
+		<li>
+			<i class="icon-eye-open"></i> <%= @user.impressionist_count(:filter => :ip_address) %> profile views
+		</li>
+		<li class="divider"></li>
+		<li>
+			<i class=" icon-star"></i> Global Average: <%= number_with_precision(@average, precision: 2) %> out of 10</span>
+		</li>
+		<li class="divider"></li>
+		<li>
+			<i class="icon-user"></i> Member Since: <%= @user.created_at.strftime("%d %b %Y") %>
+		</li>
+		<li class="divider"></li>
+	</ul>
+</div>
+<div class="clear"></div>

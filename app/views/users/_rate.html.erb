@@ -1,0 +1,7 @@
+<% if !@user.rated_by?(current_user) && !current_user?(@user)  %>
+    <p class="smart-title">
+    	Rate <%= @user.name %> <small class="pull-right" id="description"></small>
+    </p>
+    <button class="pull-right btn" style="display: none" id="submit">submit ratings</button>
+    <%= ratings_for @user, :show_user_rating => true %>
+<% end %> 

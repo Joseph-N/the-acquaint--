@@ -1,0 +1,13 @@
+<% if @user.comments.any? %>
+  <div id="comments_count">
+  	<%= image_tag "comment.png" %>
+  	<%= pluralize(@user.comments.count, "comment") %> so far
+  </div>
+<% end %>
+<% if @user.comments.count > 5 %>
+  <div class="morebox" id="more<%= @comments.first.id %>">
+  	<i class="icon-time grayscale"></i><a href="<%= more_path %>" class="more" id="<%= @comments.first.id %>"> view previous comments</a>
+  	<span class="gif"><%= image_tag "294.gif" %></span>
+  	<span class="pull-right" id="count-of" count="5">5 of <%= @user.comments.count %></span>
+  </div>
+<% end %>

@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     if params[:search]
       @users = User.paginate(:conditions => ['name LIKE ? OR username LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%"], page: params[:page], :per_page => 10)
     else
-      @users = User.paginate(page: params[:page], :per_page => 10)
+      @users = User.paginate(page: params[:page], :per_page => 5)
     end
   end
   

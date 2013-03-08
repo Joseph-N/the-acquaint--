@@ -1,0 +1,26 @@
+<div id="photo">
+	<% if @profile_pic == nil %>
+	<%= gravator_for @user %>
+	<% else %>
+	<%= image_tag @profile_pic.image.url(:medium) %>
+	<% end %>
+</div>
+
+<div id="stars">
+	<% if current_user?(@user) %>
+	<%= ratings_for @user, :static %>
+	<% elsif @user.rated_by?(current_user)  %>
+	<%= ratings_for @user %>
+	<% end %>
+</div>
+
+<div class="btn-block" style="margin-bottom: 10px;">
+	<% if !current_user?(@user) %>
+	<div class="well well-large">
+		<%= link_to(raw('<i class="icon-thumbs-up icon-white"></i> I like'), vote_up_path, class: "btn btn-inverse", id: "vote-up", method: :post) %>
+		<%= link_to(raw('<i class="icon-thumbs-down icon-white"></i> I dislike'), vote_down_path, class: "btn btn-inverse", id: "vote-down", method: :post) %>
+	</div>
+	<% end %>
+
+</div>
+<div class="spacer clear"></div>

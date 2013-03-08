@@ -1,0 +1,5 @@
+<%= form_for([@user,@comment]) do |f| %>
+  <%= f.text_area :content, cols: 45, rows: 3, class: "btn-block comment-box", placeholder: "Leave a comment" %>
+  <%= f.submit "Comment", class: "btn", id: "submit-comment" %>
+  <span id="count" class="muted"></span>
+<% end %>  

@@ -1,0 +1,6 @@
+<% if !current_user?(@user) %>
+	<div class="well well-small">
+	<%= link_to(raw('<i class="icon-envelope"></i> send a message'), new_conversation_path, class: "btn", id:"send-message") %>
+	<%= link_to(raw('<i class="icon-heart"></i> Add to favorites'), '#', class: "btn", id: "add-favorite") %>
+	</div>
+<% end %> 
