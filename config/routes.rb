@@ -3,16 +3,18 @@ Acquianter::Application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
   resources :sessions, only: [:new, :create, :destroy]
-    resources :conversations, only: [:index, :show, :new, :create] do
-      member do
-        post :reply
-        post :trash
-        post :untrash
-      end
+  resources :conversations, only: [:index, :show, :new, :create] do
+    member do
+      post :reply
+      post :trash
+      post :untrash
     end
+  end
+  resources :microposts, only: [:create, :destroy]
   
   root :to => 'users#new'
 
+  match '/home', to: 'static_pages#home'
   match '/about', to: 'static_pages#about'
   match '/signup', to: 'users#new'
   match '/signin', to: 'sessions#new'

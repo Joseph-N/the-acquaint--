@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   acts_as_voter
   
   has_many :comments, dependent: :destroy
+  has_many :microposts, dependent: :destroy
   has_many :photos, dependent: :destroy
   accepts_nested_attributes_for :photos, allow_destroy: true
   has_many :received_messages, :class_name => 'Message', :foreign_key => 'sender_id'

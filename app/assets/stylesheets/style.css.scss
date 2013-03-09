@@ -117,7 +117,7 @@ p {
   width: 400px;
   float: right;
   .signup-box {
-    margin-top: -90px;
+    margin-top: -60px;
     border-radius: 5px;
     -moz-border-radius: 5px;
     text-align: center;
@@ -497,4 +497,39 @@ small {
 }
 .gif {
   display: none;
+}
+.feed {
+  width: 550px;
+  float: left;
+  padding: 15px;
+  margin-right: 15px;
+  margin-top: 20px;
+  background-color: #FFF;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+.feed-right {
+  width: 300px;
+  float: left;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: #FFF;
+    border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+.smart-title-1 {
+  font-size: 13px;
+  line-height: 30px;
+  font-weight: bold;
+  border-top-width: thin;
+  border-right-width: thin;
+  border-bottom-width: thin;
+  border-left-width: thin;
+  border-bottom-style: solid;
+  border-top-color: #CCC;
+  border-right-color: #CCC;
+  border-bottom-color: #CCC;
+  border-left-color: #CCC;
 }

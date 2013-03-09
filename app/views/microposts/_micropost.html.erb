@@ -1,0 +1,12 @@
+<div class="sbody">
+    <div class="simage">
+        <%= thumbnail_for(micropost.user, "small") %>
+    </div>
+    <div class="stext">
+        <strong><%= link_to micropost.user.username, micropost.user %></strong><br />
+        <%= auto_link(micropost.content, html: { target: '_blank' }) %>
+        <div class="sttime">
+            <%= time_ago_in_words(micropost.created_at) %> ago        
+        </div> 
+    </div>
+</div>

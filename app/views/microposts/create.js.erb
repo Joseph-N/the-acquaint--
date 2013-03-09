@@ -1,0 +1,3 @@
+$('.micropost').css('margin-bottom','20px');
+$('.micropost').after('<%= escape_javascript(render(:partial => @micropost )) %>').hide().show()
+$('#new_micropost')[0].reset()

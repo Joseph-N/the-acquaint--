@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   
   def new
     if signed_in?
-      redirect_to current_user
+      redirect_to home_path
     else
       @user = User.new
     end
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       sign_in @user
-      redirect_to @user
+      redirect_to home_path
     else
      render 'new'
     end
@@ -113,8 +113,7 @@ class UsersController < ApplicationController
     respond_to do |format |
       format.json { render :json => @percentage }
     end
-  end
-  
+  end  
   
   private
     

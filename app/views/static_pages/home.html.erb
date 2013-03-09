@@ -1,0 +1,98 @@
+<% content_for(:head) do %>
+<script>
+$(document).ready(function(){
+	$('#new_micropost').submit(function(){
+		$.post($(this).attr('action'), $(this).serialize(), null, "script");
+        return false;
+	});
+	$('#loading').ajaxStart(function() {
+		$('#update').addClass('disabled');
+		$(this).show();
+	}).ajaxStop(function() {
+		$('#update').removeClass('disabled');
+		$(this).hide();			
+	});
+	$('textarea').countChars();
+});
+</script>
+<% end %>
+<div id="wrapper">
+	<div class="feed">
+		<div class="micropost">
+		<h4>What's the latest? <span class="pull-right" id="loading" style="display: none"><small>posting</small><%= image_tag "294.gif" %></span></h4>
+		<%= form_for(@micropost) do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+			<%= f.text_area :content, cols: 45, rows: 3, class: "btn-block comment-box" %>
+			<%= f.submit "Post", class: "btn", id: "update" %><span id="count" class="muted"></span>
+		<% end %>
+	</div>
+
+		<% if Micropost.any? && !@micropost.errors.any? %>
+			<%= render @microposts %>
+		<% end %>
+
+	</div>
+	<div class="feed-right">
+		<p class="smart-title-1">
+			Highest Rated
+		</p>
+
+		<ul class="thumbnails">
+			<li class="span2 pull-left">
+				<%= link_to(image_tag(@most_popular.photos.first.image.url(:hrated), alt: @most_popular.name, width: "130", height: "97"), @most_popular, class: "thumbnail") %>
+			</li>
+			 <span class="span2 pull-right">
+			 	<b><%= @most_popular.name %></b><br />
+			 	<p>You can use 'blocks' as an alternative to the string interpolation with correct usage </p>
+			 </span>
+		</ul>
+		<p class="smart-title-1">
+			Your Favourites
+		</p>
+		<div class="sbody">
+			<div class="simage"><img src="http://placehold.it/50x50">
+			</div>
+			<div class="stext">
+				Content for  class "stext" Goes Here
+				<div class="sttime">
+					2 seconds ago
+				</div>
+			</div>
+		</div>
+
+		<div class="sbody">
+			<div class="simage"><img src="http://placehold.it/50x50">
+			</div>
+			<div class="stext">
+				Content for  class "stext" Goes Here
+				<div class="sttime">
+					2 seconds ago
+				</div>
+			</div>
+		</div>
+
+		<div class="spacer"></div>
+		<p class="smart-title-1">
+			Newest Users
+		</p>
+
+		<ul class="thumbnails">
+			<li class="span1">
+				<a href="#" class="thumbnail"> <img alt="260x180" style="width: 50px; height: 50px;" src="http://placehold.it/50x50"> </a>
+			</li>
+			<li class="span1">
+				<a href="#" class="thumbnail"> <img alt="260x180" style="width: 50px; height: 50px;" src="http://placehold.it/50x50"> </a>
+			</li>
+			<li class="span1">
+				<a href="#" class="thumbnail"> <img alt="260x180" style="width: 50px; height: 50px;" src="http://placehold.it/50x50"> </a>
+			</li>
+			<li class="span1">
+				<a href="#" class="thumbnail"> <img alt="260x180" style="width: 50px; height: 50px;" src="http://placehold.it/50x50"> </a>
+			</li>
+		</ul>
+
+	</div>
+	<div class="clear"></div>
+
+	<div class="clear"></div>
+</div>
