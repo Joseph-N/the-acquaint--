@@ -38,8 +38,9 @@ $(document).ready(function(){
 		</p>
 
 		<ul class="thumbnails">
+			<!-- @most_popular.photos.first.image.url(:hrated), alt: @most_popular.name, width: "130", height: "97" -->
 			<li class="span2 pull-left">
-				<%= link_to(image_tag(@most_popular.photos.first.image.url(:hrated), alt: @most_popular.name, width: "130", height: "97"), @most_popular, class: "thumbnail") %>
+				<%= link_to(image_tag("http://placekitten.com/130/130"), @most_popular, class: "thumbnail") %>
 			</li>
 			 <span class="span2 pull-right">
 			 	<b><%= @most_popular.name %></b><br />
