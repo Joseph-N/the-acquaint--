@@ -33,8 +33,9 @@ class MicropostsController < ApplicationController
   end
 
   def load_new_microposts
-    @id = params[:id]
-    @microposts = Micropost.where("id > ?", @id)
+    @id = params[:old_id]
+    new_id = params[:new_id]
+    @microposts = Micropost.where("id <= ?", new_id).limit(5)
       respond_to do |format|
         format.js
       end

@@ -30,30 +30,32 @@ $(document).ready(function(){
      	$.get('/home/refresh.json', "id=" + id, null, "json")
      	.done(function(data){
      		if((data.id) != 0){
-     			$.get('/home/load_new_microposts.js', "id=" + id, null, "script");
+     			$.get('/home/load_new_microposts.js', {new_id: (data.id + id), old_id: id}, null, "script");
      		}
      	});
         return false;
     }, 10000);
 
 
-    $(window).scroll(function(){
-        if  ($(window).scrollTop() == $(document).height() - $(window).height()){
-        	$('div.scroll').show();
+    $(window).data('ajaxready', true).scroll(function(e){
+    	if ($(window).data('ajaxready') == false) return;
 
-        	var id = $('.sbody.sbody-home:last').attr('id');
-    	
-        	$.ajax({
+        if  ($(window).scrollTop() >= ($(document).height() - $(window).height())){
+        	$('div.scroll').show();
+        	$(window).data('ajaxready', false);
+
+        	var id = $('.sbody.sbody-home:last').attr('id');	
+	    	$.ajax({
 				url: '/home/load_microposts_on_scroll',
 				type: 'GET',
 				data: { last_msg_id: id },
 				global: false,
 				complete: function(){
+					$(window).data('ajaxready', true);
 					$('div.scroll').hide();
 				}
 			});
-        	return false;
-            
+        	
         }
 	});
 });
