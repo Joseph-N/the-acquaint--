@@ -30,7 +30,7 @@ $(document).ready(function(){
      	$.get('/home/refresh.json', "id=" + id, null, "json")
      	.done(function(data){
      		if((data.id) != 0){
-     			$.get('/home/load_new_microposts.js', {new_id: (data.id + id), old_id: id}, null, "script");
+     			$.get('/home/load_new_microposts.js', "old_id=" + id, null, "script");
      		}
      	});
         return false;
