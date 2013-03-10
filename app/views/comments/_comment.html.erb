@@ -3,7 +3,15 @@
         <%= thumbnail_for(comment.commenter, "small") %>
     </div>
     <div class="stext">
-        <strong><%= link_to comment.commenter.username, comment.commenter %></strong><br />
+        <strong><%= link_to comment.commenter.username, comment.commenter %>
+            <span class="pull-right">
+                <% if current_user?(@user) %>
+                    <%= link_to "x", [comment.user, comment], method: :delete,
+                                         title: "Remove",
+                                         id: comment.id %>              
+                <% end %>
+            </span>
+        </strong>
         <%= auto_link(comment.content, html: { target: '_blank' }) %>
         <div class="sttime">
             <%= time_ago_in_words(comment.created_at) %> ago        

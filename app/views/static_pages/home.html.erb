@@ -2,17 +2,60 @@
 <script>
 $(document).ready(function(){
 	$('#new_micropost').submit(function(){
-		$.post($(this).attr('action'), $(this).serialize(), null, "script");
+		$('#update').addClass('disabled');
+		$('#loading').show();
+		$.ajax({
+			url: $(this).attr('action'),
+			type: 'POST',
+			data: $(this).serialize(),
+			global: false,
+			complete: function(){
+				$('#update').removeClass('disabled');
+				$('#loading').hide();	
+			}
+		});
         return false;
 	});
-	$('#loading').ajaxStart(function() {
-		$('#update').addClass('disabled');
-		$(this).show();
-	}).ajaxStop(function() {
-		$('#update').removeClass('disabled');
-		$(this).hide();			
-	});
 	$('textarea').countChars();
+	$('a[title=Delete]').click(function(){
+		$.ajax({
+		    url: $(this).attr('href'),
+            type: 'DELETE',
+            global: false,
+        });
+        return false
+    });
+    setInterval(function() {   
+        var id = parseInt($('.sbody.sbody-home').first().attr('id'));	
+     	$.get('/home/refresh.json', "id=" + id, null, "json")
+     	.done(function(data){
+     		if((data.id) != 0){
+     			$.get('/home/load_new_microposts.js', "id=" + id, null, "script");
+     		}
+     	});
+        return false;
+    }, 10000);
+
+
+    $(window).scroll(function(){
+        if  ($(window).scrollTop() == $(document).height() - $(window).height()){
+        	$('div.scroll').show();
+
+        	var id = $('.sbody.sbody-home:last').attr('id');
+    	
+        	$.ajax({
+				url: '/home/load_microposts_on_scroll',
+				type: 'GET',
+				data: { last_msg_id: id },
+				global: false,
+				complete: function(){
+					$('div.scroll').hide();
+				}
+			});
+        	return false;
+            
+        }
+	});
 });
 </script>
 <% end %>
@@ -30,6 +73,7 @@ $(document).ready(function(){
 		<% if Micropost.any? && !@micropost.errors.any? %>
 			<%= render @microposts %>
 		<% end %>
+		<div class="scroll"><%= image_tag "159.gif" %></div>
 
 	</div>
 	<div class="feed-right">
@@ -43,8 +87,8 @@ $(document).ready(function(){
 				<%= link_to(image_tag("http://placekitten.com/130/130"), @most_popular, class: "thumbnail") %>
 			</li>
 			 <span class="span2 pull-right">
-			 	<b><%= @most_popular.name %></b><br />
-			 	<p>You can use 'blocks' as an alternative to the string interpolation with correct usage </p>
+			 	<b><%= @most_popular.name %></b>
+			 	<p class="small-font">You can use 'blocks' as an alternative to the string interpolation with correct usage </p>
 			 </span>
 		</ul>
 		<p class="smart-title-1">

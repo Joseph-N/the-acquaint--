@@ -1,0 +1,3 @@
+$('.micropost').css('margin-bottom','20px');
+$('#<%= @id %>').before('<%= escape_javascript(render(:partial => @microposts )) %>').hide().fadeIn('slow');
+

@@ -18,11 +18,11 @@ class CommentsController < ApplicationController
     @user = User.find(params[:user_id])
     @comment = @user.comments.find(params[:id])
     @comment.destroy
-    redirect_to @user
+    redirect_to user_path(@user)
   end
 
   def more_comments
-    @user = User.find(params[:id]);
+    @user = User.find(params[:id])
     @last_msg_id = params[:lastmsg]
     @comments = @user.comments.where("id < ?", @last_msg_id).order("id DESC").limit(5).sort
     @new_last_msg_id = (@comments.any?) ? (@comments.first.id) : 0
@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
   private
   def correct_user
     @comment = current_user.comments.find_by_id(params[:id])
-    redirect_to root_url if @comment.nil?
+    redirect_to user_path(@user) if @comment.nil?
   end
   
 end

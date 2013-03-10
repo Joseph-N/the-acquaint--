@@ -20,10 +20,13 @@ Acquianter::Application.routes.draw do
   match '/signin', to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
   match "/users/:id/rate", to: 'users#rate', as: 'rate_user', via: :post
-  match 'users/:id/vote_up', to: 'users#vote_up', as: 'vote_up', via: :post
-  match 'users/:id/vote_down', to: 'users#vote_down', as: 'vote_down', via: :post
-  match 'users/:id/average', to: 'users#average', via: :get
-  match 'users/:id/comments/more', to: 'comments#more_comments', as: 'more', via: :post
+  match '/users/:id/vote_up', to: 'users#vote_up', as: 'vote_up', via: :post
+  match '/users/:id/vote_down', to: 'users#vote_down', as: 'vote_down', via: :post
+  match '/users/:id/average', to: 'users#average', via: :get
+  match '/users/:id/comments/more', to: 'comments#more_comments', as: 'more', via: :post
+  match '/home/refresh', to: 'microposts#check_new_updates'
+  match '/home/load_new_microposts', to: 'microposts#load_new_microposts'
+  match '/home/load_microposts_on_scroll', to: 'microposts#load_on_scroll'
   
 
   # The priority is based upon order of creation:

@@ -1,12 +1,20 @@
-<div class="sbody">
+<div class="sbody sbody-home" id="<%= micropost.id %>">
     <div class="simage">
         <%= thumbnail_for(micropost.user, "small") %>
     </div>
     <div class="stext">
-        <strong><%= link_to micropost.user.username, micropost.user %></strong><br />
+        <strong><%= link_to micropost.user.username, micropost.user %>
+            <span class="pull-right">
+                <% if current_user?(micropost.user) %>
+                    <%= link_to "x", micropost, method: :delete,
+                                         title: "Delete",
+                                         id: micropost.id %>
+                <% end %>
+            </span>
+        </strong><br />    
         <%= auto_link(micropost.content, html: { target: '_blank' }) %>
         <div class="sttime">
-            <%= time_ago_in_words(micropost.created_at) %> ago        
+            <%= time_ago_in_words(micropost.created_at) %> ago  
         </div> 
     </div>
 </div>

@@ -52,6 +52,13 @@ module UsersHelper
     end
   end
 
+  def profile_pic(user)
+    image_tag user.photos.first.image.url(:small),
+               alt: user.name,width: "25",
+               height: "25", title: user.name,
+               style: "margin-top: -2px;"
+  end
+
   
   #returns text_helper for average rating
   def average_text(score)
