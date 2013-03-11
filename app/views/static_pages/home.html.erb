@@ -17,7 +17,7 @@ $(document).ready(function(){
         return false;
 	});
 	$('textarea').countChars();
-	$('a[title=Delete]').click(function(){
+	$('body').on('click', 'a[title=Delete]', function(){
 		$.ajax({
 		    url: $(this).attr('href'),
             type: 'DELETE',
@@ -64,7 +64,7 @@ $(document).ready(function(){
 <div id="wrapper">
 	<div class="feed">
 		<div class="micropost">
-		<h4>What's the latest? <span class="pull-right" id="loading" style="display: none"><small>posting</small><%= image_tag "294.gif" %></span></h4>
+		<h4>What's the latest? <span class="pull-right" id="loading" style="display: none"><%= image_tag "294.gif" %></span></h4>
 		<%= form_for(@micropost) do |f| %>
 			<%= render 'shared/error_messages', object: f.object %>
 			<%= f.text_area :content, cols: 45, rows: 3, class: "btn-block comment-box" %>

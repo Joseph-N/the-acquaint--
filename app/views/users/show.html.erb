@@ -32,19 +32,22 @@ $(document).ready(function() {
       $('#submit').show();
     });
     $('.more').click(function(e){
-      var id = $(this).attr('id');
-      if(id){
-      $.post($(this).attr('href'), "lastmsg=" + id, null, "script");
-      return false;
-    }
-    $('.more').ajaxStart(function(){
-      $('.gif').show();
-
-      }).ajaxStop(function(){
-      $('.gif').hide();
+    	var id = $(this).attr('id');
+        if(id){
+        	$('#loading').show();
+		  	$.ajax({
+				url: $(this).attr('href'),
+				type: 'POST',
+				data: { lastmsg: id },
+				dataType: "script",
+				global: false,
+				complete: function(){
+					$('#loading').hide();
+				}
+			});
+	        return false;
+        }
     });
-
-  });
 });
 
 </script>
